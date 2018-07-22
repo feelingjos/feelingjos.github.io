@@ -13,11 +13,11 @@
 
     <title>
         
-          github pages+阿里云域名绑定搭建个人博客 - 古朋的博客 | huyue&#39;s Blog
+          JDK8新特性--Lambda(2) - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2017/03/27/github页面连接域名/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,7 +67,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">huyue&#39;s Blog</a>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -165,14 +165,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#github" title="github">github</a>
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
                         
                     </div>
-                    <h1>github pages+阿里云域名绑定搭建个人博客</h1>
+                    <h1>JDK8新特性--Lambda(2)</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 古朋 on
-                        2017-03-27
+                        Posted by feelj on
+                        2018-07-22
                     </span>
                 </div>
             </div>
@@ -191,17 +193,79 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>一直想整出一个个人博客出来玩玩，于是就查了些资料，发现在域名绑定个人博客这一块的资料比较杂，试了很多次才成功，所以写出篇文章供大家更方便的操作。</p>
-<h2 id="1-获取github-pages的ip地址"><a href="#1-获取github-pages的ip地址" class="headerlink" title="1.获取github pages的ip地址"></a>1.获取github pages的ip地址</h2><p>打开你的电脑的命令行工具，ping你的github地址，忽略“/”后面的路径，比如我的github pages地址是<a href="huyuee.github.io/blog">huyuee.github.io/blog</a>，那么我需要ping的地址就是huyuee.github.io，如下图：</p>
-<p><img src="https://cloud.githubusercontent.com/assets/12147318/24323059/f0607102-11aa-11e7-88ac-7043065de086.png" alt="image"></p>
-<p>我得到了我的github pages的ip地址：151.101.100.133</p>
-<h2 id="2-配置阿里云域名解析"><a href="#2-配置阿里云域名解析" class="headerlink" title="2.配置阿里云域名解析"></a>2.配置阿里云域名解析</h2><p>进入你的阿里云的解析域名列表，选择你想要解析的域名，点击后面的解析。如下图所示：</p>
-<p><img src="https://cloud.githubusercontent.com/assets/12147318/24323086/6dc683fc-11ab-11e7-854f-d0db969f43aa.png" alt="image"></p>
-<p>然后点击添加解析，因为我的ip地址是151.101.100.133，所以我添加了两条解析记录。如下图所示：</p>
-<p><img src="https://cloud.githubusercontent.com/assets/12147318/24323066/01644df2-11ab-11e7-9f02-ca3a1544ded8.png" alt="image"></p>
-<h2 id="3-配置github-pages的custom-domain"><a href="#3-配置github-pages的custom-domain" class="headerlink" title="3.配置github pages的custom domain"></a>3.配置github pages的custom domain</h2><p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：</p>
-<p><img src="https://cloud.githubusercontent.com/assets/12147318/24323070/084fb192-11ab-11e7-8300-39e790b17cdf.png" alt="image"></p>
-<p>设置到这个地方，你现在访问你的域名地址，比如我的是<a href="http://www.huyuee.com。就能看到你的github" target="_blank" rel="noopener">www.huyuee.com。就能看到你的github</a> pages了！</p>
+                <h1><span id="jdk8-xin-te-xin-lambda-2-lambda-ji-chu-yu-fa">JDK8新特新–Lambda(2) lambda基础语法</span><a href="#jdk8-xin-te-xin-lambda-2-lambda-ji-chu-yu-fa" class="header-anchor">#</a></h1><ul>
+<li><p><strong>lambda表达式语法</strong></p>
+<blockquote>
+<p>lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符<br><br>  箭头操作符将 Lambda 表达式拆分成两部分<br>  看下面这段代码</p>
+</blockquote>
+<pre><code>Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.length());
+</code></pre><p>  (x,y)为lambda表达式的左侧<br><br>  Integer.compare(x.length(), y.length());为lambda的右侧(lambda体)，也可理解为方法的逻辑实现，对应匿名函数了的</p>
+<pre><code>@Override
+public int compare(String o1, String o2) {
+    return Integer.compare(o1.length(), o2.length());
+}
+</code></pre><p>  语法格式一：无参数，无返回值</p>
+<pre><code>() -&gt; System.out.println(&quot;Hello lambda!&quot;);
+</code></pre><p>  比如Runnable实现run方法，使用lambda之前</p>
+<pre><code>Runnable r = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println(&quot;Hello lambda!);
+    }
+};
+//run方法是无参数，无返回值得，使用lambda后
+Runnable r1 = () -&gt; System.out.println(&quot;Hello Lambda!&quot;);
+而其他使用是一样的
+</code></pre><p>  语法格式二：有一个参数，并且无返回值</p>
+<pre><code>(x) -&gt; System.out.println(x)
+</code></pre><p>  jdk8新的一个接口Consumer</p>
+<pre><code>Consumer&lt;String&gt; con = （x） -&gt; System.out.println(x);
+con.accept(&quot;Hello Lambda!&quot;);
+</code></pre><p>  语法格式三：若只有一个参数，小括号可以省略不写</p>
+<pre><code>   x -&gt; System.out.println(x)
+Consumer&lt;String&gt; con = （x） -&gt; System.out.println(x);
+con.accept(&quot;Hello Lambda!&quot;);
+</code></pre><p>  语法格式四：有两个以上的参数，有返回值，并且 Lambda 体中有多条语句</p>
+<pre><code>Comparator&lt;Integer&gt; com = (x, y) -&gt; {
+    //如果lambda体有多行，使用{}包裹
+     System.out.println(&quot;hello lambda&quot;);
+     return Integer.compare(x, y);
+ };
+</code></pre><p>  语法格式五：若 Lambda 体中只有一条语句， return 和 大括号都可以省略不写</p>
+<pre><code>Comparator&lt;Integer&gt; com = (x, y) -&gt; Integer.compare(x, y);
+</code></pre><p>  语法格式六：Lambda 表达式的参数列表的数据类型可以省略不写，因为JVM编译器通过上下文推断出，数据类型，即“类型推断”</p>
+<pre><code>(Integer x, Integer y) -&gt; Integer.compare(x, y);
+</code></pre><p>  有人就会说了，如果接口中有多个方法这么用，大家看看源码</p>
+<pre><code>@FunctionalInterface
+public interface Runnable {
+    //...
+}
+</code></pre><p>  Lambda 表达式需要“函数式接口”的支持<br><br>  函数式接口：接口中只有一个抽象方法的接口，称为函数式接口。 可以使用注解 @FunctionalInterface 修饰 可以检查是否是函数式接口<br>  其他接口有default 方法实现</p>
+<p>  有人会问Comparator源码中为什么eequals没有default实现，这是因为java中所有的类都集成Object类，所以有Object实现了，因此可以使用lambda表达式，同理</p>
+<pre><code>@FunctionalInterface
+public interface MyFun {
+
+    public Integer getValue(Integer num);
+
+    boolean equals(Object obj);
+
+    int hashCode();
+}
+</code></pre><p>  这样做也是可以的，只要是Object类有的方法重写多可以使用lambda</p>
+<p>  lambda应用，需求：对数字进行运算</p>
+<pre><code>//创建MyFun&lt;T&gt;
+@FunctionalInterface
+public interface MyFun {
+    public Integer getValue(Integer num);
+}    
+
+public Integer operation(Integer num, MyFun mf){
+    return mf.getValue(num);
+}
+//运算逻辑
+System.out.println(operation(200, (y) -&gt; y + 200));
+</code></pre></li>
+</ul>
 
 
                 <hr>
@@ -211,12 +275,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/04/07/ZenCoding/" data-toggle="tooltip" data-placement="top" title="Zen Coding--如何快速地书写HTML代码">&larr; Previous Post</a>
+                            <a href="/2018/07/22/JDK8新特性-Lambda-1/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(1)">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/03/21/js原型对象2/" data-toggle="tooltip" data-placement="top" title="js原型对象2">Next Post &rarr;</a>
+                            <a href="/2018/07/22/JDK8新特性-Lambda-3/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(3)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -243,7 +307,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#github" title="github">github</a>
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
                         
                     </div>
                 </section>
@@ -256,17 +322,7 @@
                 <ul class="list-inline">
 
                     
-                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
                         <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
                     
                 </ul>
                 
@@ -328,44 +384,37 @@
                 
                 
                 
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
                     <li>
-                        <a target="_blank"  href="https://github.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
                         </a>
                     </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
                 
                 
-                    <li>
-                        <a target="_blank" href="http://www.jianshu.com/u/2b10ebdd9c0f">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">简</i>
-                            </span>
-                        </a>
-                    </li>
                 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
                 
                 
 
@@ -375,13 +424,13 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; huyue&#39;s Blog 2018
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    Theme by <a href="http://feeljblog">feelj</a>
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
                     </span>
-                    Ported by <a href="https://huyuee.github.io/blog/">huyue</a> |
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
                     <!-- 项目star和地址 -->
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -464,7 +513,7 @@
 <script>
     // dynamic User by Hux
     var _gaId = 'UA-49627206-1';
-    var _gaDomain = 'huangxuan.me';
+    var _gaDomain = 'feeljblog';
 
     // Originial
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

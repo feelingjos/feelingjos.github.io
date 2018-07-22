@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          JDK8新特性--Stream API - feelj | feelj&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Stream API/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Stream API" title="Stream API">Stream API</a>
+                        
+                    </div>
+                    <h1>JDK8新特性--Stream API</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <ul>
+<li><p><strong><font size="6">JDK8新特新–Stream API </font></strong><br><br><strong>Stream api</strong><br>   Java8中有两大最为重要的改变。第一个是Lambda 表达式；另外一个则是Stream API(java.util.stream.*)。<br>  Stream 是Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用Stream API 对集合数据进行操作，就类似于使用SQL 执行的数据库查询。也可以使用Stream API 来并行执行操作。简而言之，Stream API 提供了一种高效且易于使用的处理数据的方式 <br><br>  流(Stream) 到底是什么呢？<br>  是数据渠道，用于操作数据源（集合、数组等）所生成的元素序列。“集合讲的是数据，流讲的是计算！”<br><br>  注意：<br>  ①Stream 自己不会存储元素。<br><br>  ②Stream 不会改变源对象。相反，他们会返回一个持有结果的新Stream。<br><br>  ③Stream 操作是延迟执行的。这意味着他们会等到需要结果的时候才执行。<br><br>  <img src="https://i.imgur.com/TjKWsjq.png" alt="简易图"><br><br>  <img src="https://i.imgur.com/AjknSHk.png" alt=""><br><br>  如何使用stream :<br></p>
+<pre><code>- 创建 Stream
+- 中间操作
+- 终止操作(终端操作)&lt;br&gt;
+
+//1. Collection 提供了两个方法  stream() 与 parallelStream()
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+Stream&lt;String&gt; stream = list.stream(); //获取一个顺序流
+Stream&lt;String&gt; parallelStream = list.parallelStream(); //获取一个并行流
+
+//2. 通过 Arrays 中的 stream() 获取一个数组流
+Integer[] nums = new Integer[10];
+Stream&lt;Integer&gt; stream1 = Arrays.stream(nums);
+
+//3. 通过 Stream 类中静态方法 of()
+Stream&lt;Integer&gt; stream2 = Stream.of(1,2,3,4,5,6);
+
+//4. 创建无限流
+//迭代
+Stream&lt;Integer&gt; stream3 = Stream.iterate(0, (x) -&gt; x + 2).limit(10);
+stream3.forEach(System.out::println);
+
+//生成
+Stream&lt;Double&gt; stream4 = Stream.generate(Math::random).limit(2);
+stream4.forEach(System.out::println);
+
+多个中间操作可以连接起来形成一个流水线，除非流水线上触发终止操作，否则中间操作不会执行任何的处理！
+ 而在终止操作时一次性全部处理，称为“惰性求值”&lt;br&gt;
+</code></pre><p> <img src="https://i.imgur.com/WctVTc0.jpg" alt=""></p>
+<pre><code>  stream api 中间操作语法:&lt;br&gt;
+  filter——接收 Lambda ， 从流中排除某些元素。&lt;br&gt;
+  limit——截断流，使其元素不超过给定数量。&lt;br&gt;
+  skip(n) —— 跳过元素，返回一个扔掉了前 n 个元素的流。若流中元素不足 n 个，则返回一个空流。与 limit(n) 互补&lt;br&gt;
+  distinct——筛选，通过流所生成元素的 hashCode() 和 equals() 去除重复元素&lt;br&gt;
+
+  Stream&lt;Employee&gt; stream = emps.stream()
+      .filter((e) -&gt; {//filter——接收 Lambda ， 从流中排除某些元素
+          System.out.println(&quot;stream中间操作&quot;);
+          return e.getAge() &lt;= 35;
+      });
+
+  //只有当做终止操作时，所有的中间操作会一次性的全部执行，称为“惰性求值”
+  stream.forEach(System.out::println);
+
+  emps.stream()
+          .filter((e) -&gt; e.getSalary() &gt;5000)
+          .limit(2)//limit——截断流，使其元素不超过给定数量
+          .skip(2)//跳过元素，返回一个扔掉了前 n 个元素的流。若流中元素不足 n 个，则返回一个空流。与 limit(n) 互补
+          .distinct()//筛选，通过流所生成元素的 hashCode() 和 equals() 去除重复元素(需要重写hashCode和equals方法)
+          .forEach(System.out::println);
+
+ 映射 map: &lt;br&gt;
+ &gt; map——接收 Lambda ， 将元素转换成其他形式或提取信息。接收一个函数作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素。
+
+    List&lt;String&gt; strList = Arrays.asList(&quot;aaa&quot;, &quot;bbb&quot;, &quot;ccc&quot;, &quot;ddd&quot;, &quot;eee&quot;);
+    List&lt;String&gt; list = Arrays.asList(&quot;aaa&quot;, &quot;bbb&quot;, &quot;ccc&quot;, &quot;ddd&quot;, &quot;eee&quot;);
+    list.stream().map(str -&gt; str.toUpperCase()).forEach(System.out::println);
+    //看控制台输出
+    AAA
+    BBB
+    CCC
+    DDD
+    EEE
+    流中的数据全部转大写了，然后大家可以理解一下
+
+    emps.stream().map(Employee::getName).forEach(System.out::println);
+    输出所有员工名称
+&gt; flatMap——接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有流连接成一个流
+
+    public static Stream&lt;Character&gt; filterCharacter(String str){
+      List&lt;Character&gt; list = new ArrayList&lt;&gt;();
+
+      for (Character ch : str.toCharArray()) {
+          list.add(ch);
+      }
+
+      return list.stream();
+    }
+
+    Stream&lt;Character&gt; stream3 = list.stream()
+          .flatMap(StreamGrammar::filterCharacter);
+
+     stream3.forEach(System.out::println);
+
+flatmap可以同步list的add和addall方法去理解&lt;br&gt;
+sorted()——自然排序&lt;br&gt;
+sorted(Comparator com)——定制排序
+
+  //自然排序是根据实现Comparable接口中的排序
+  List&lt;String&gt; list=Arrays.asList(&quot;ccc&quot;,&quot;aaa&quot;,&quot;bbb&quot;,&quot;ddd&quot;,&quot;eee&quot;);
+  list.stream().forEach(System.out::println); 
+
+  System.out.println(&quot;------------------------&quot;);
+
+  emps.stream()
+        .sorted((x,y) -&gt; {//添加额外配置条件
+          if(x.getAge() == y.getAge()){
+              return x.getName().compareTo(y.getName());
+          }else{
+              return Integer.compare(x.getAge(), y.getAge());
+          }
+        })
+        .forEach(System.out::println);
+
+allMatch——检查是否匹配所有元素
+anyMatch——检查是否至少匹配一个元素
+noneMatch——检查是否没有匹配的元素
+findFirst——返回第一个元素
+findAny——返回当前流中的任意元素
+count——返回流中元素的总个数
+max——返回流中最大值
+min——返回流中最小值
+
+  //检查是否匹配所有元素:
+  boolean allMatch = empss.stream().allMatch((e) -&gt; e.getStatus().equals(Status.BUSY));
+  //检查是否至少匹配一个元素
+  boolean anyMatch = empss.stream().anyMatch((e)-&gt;e.getStatus().equals(Status.BUSY));
+  //检查是否没有匹配的元素
+  boolean noneMatch = empss.stream().noneMatch((e)-&gt;e.getStatus().equals(Status.BUSY));
+  //返回第一个元素
+  Optional&lt;Employee&gt; op = empss.stream()
+          .sorted((e1, e2) -&gt; Double.compare(e1.getSalary(), e2.getSalary()))
+          .findFirst();
+
+  System.out.println(op.get());
+
+  //返回当前流中的任意元素
+  Optional&lt;Employee&gt; findAny = empss.stream()
+         .filter((e) -&gt; e.getStatus().equals(Status.FREE))
+         .findAny();
+
+  System.out.println(findAny.get());
+
+  //返回流中元素的总个数
+  long count = empss.stream().count();
+
+  //返回流中最大值
+  Optional&lt;Employee&gt; max = empss.stream()
+         .max(((x,y) -&gt; Double.compare(x.getSalary(),y.getSalary())));
+  System.out.println(max.get());
+</code></pre><p>  归约<br><br>  reduce(T identity, BinaryOperator) / reduce(BinaryOperator) ——可以将流中元素反复结合起来，得到一个值。</p>
+<pre><code>List&lt;Integer&gt; list = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+
+Integer sum = list.stream()
+    .reduce(0, (x, y) -&gt; x + y);
+
+System.out.println(sum);//55
+
+Optional&lt;Double&gt; op = empss.stream()
+    .map(Employee::getSalary)
+    .reduce(Double::sum);
+
+System.out.println(op.get());
+</code></pre><p>  收集<br><br>   collect- 将流转换为其他形式。接收一个Collter接口的实现，用于给stream中的元素做汇总的方法</p>
+<pre><code>List&lt;String&gt; collect = empss.stream()
+      .map(Employee::getName)//收集到list中
+      .collect(Collectors.toList());
+
+collect.forEach(System.out::println);
+
+Set&lt;String&gt; set = empss.stream()
+      .map(Employee::getName)
+      .collect(Collectors.toSet());//收集到set中
+
+set.forEach(System.out::println);
+
+//收集到复杂集合中
+HashSet&lt;String&gt; hashSet = empss.stream()
+       .map(Employee::getName)
+       .collect(Collectors.toCollection(HashSet::new));
+
+hashSet.forEach(System.out::println);
+
+//收集总数
+Long collect = empss.stream().collect(Collectors.counting());
+
+//平均值
+Double collect2 = empss.stream().collect(Collectors.averagingDouble(Employee::getSalary));
+
+//总和
+Double collect3 = empss.stream().collect(Collectors.summingDouble(Employee::getSalary));
+
+//最大值
+Optional&lt;Employee&gt; collect4 = empss.stream()
+   .collect(Collectors.maxBy((x,y)-&gt;Double.compare(x.getSalary(), y.getSalary())));
+
+//最小值
+Optional&lt;Double&gt; collect5 = empss.stream()
+     .map(Employee::getSalary)
+     .collect(Collectors.minBy(Double::compare));
+//分组
+Map&lt;Status, List&lt;Employee&gt;&gt; group = empss.stream()
+      .collect(Collectors.groupingBy(Employee::getStatus));
+//多级分组
+empss.stream()
+  .collect(Collectors.groupingBy(Employee::getStatus,Collectors.groupingBy(Employee::getSalary)));
+
+//分区
+Map&lt;Boolean, List&lt;Employee&gt;&gt; collect = empss.stream()
+  .collect(Collectors.partitioningBy((e)-&gt;e.getSalary()&gt;8000));
+
+//另外的实现方式
+DoubleSummaryStatistics collect2 = empss.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
+System.out.println(collect2.getAverage());
+System.out.println(collect2.getCount());
+System.out.println(collect2.getMin());
+System.out.println(collect2.getSum());
+
+//字符串拼接
+String collect3 = empss.stream().map(Employee::getName).collect(Collectors.joining());
+</code></pre></li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/JDK8新特性-Lambda-5/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(5)">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Stream API" title="Stream API">Stream API</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
+                    <li>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
+                        </a>
+                    </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+
+
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
+                    <br>
+                    Theme by <a href="http://feeljblog">feelj</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
+                    <!-- 项目star和地址 -->
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.feeljblog.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'feeljblog';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

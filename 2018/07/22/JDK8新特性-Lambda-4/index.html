@@ -13,11 +13,11 @@
 
     <title>
         
-          with语句详解 - 古朋的博客 | huyue&#39;s Blog
+          JDK8新特性--Lambda(4) - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2017/03/15/with/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,7 +67,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">huyue&#39;s Blog</a>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -165,16 +165,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#前端开发" title="前端开发">前端开发</a>
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
                         
-                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
                         
                     </div>
-                    <h1>with语句详解</h1>
+                    <h1>JDK8新特性--Lambda(4)</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
-                        Posted by 古朋 on
-                        2017-03-15
+                        Posted by feelj on
+                        2018-07-22
                     </span>
                 </div>
             </div>
@@ -193,13 +193,98 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>with这种语法现如今应该已经无人问津了，但是还是想来说说这个在JavaScript中的用法和缺点</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>with语句的作用是将代码的作用域设置到一个特定的对象中。</p>
-<p>利：with语句可以在不造成性能损失的情况下，减少变量的长度。很多情况下，也可以不使用with语句，而是使用一个临时变量来保存指针，来达到同样的效果。</p>
-<p>弊：with语句使得程序在查找该语句块中的所有的变量值时，都是先在该with语句指定的对象下面先寻找一遍，然后再去外面的作用域去寻找。所以尽量不要在该语句块中去使用一些不属于该对象中的变量</p>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;</span><br><span class="line">  name : <span class="string">"古朋"</span>,</span><br><span class="line">  nick_name : <span class="string">"gupeng"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">with</span>(x)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(name+<span class="string">'的小名是'</span>+nick_name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以替换为:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;</span><br><span class="line">  name : <span class="string">"古朋"</span>,</span><br><span class="line">  nick_name : <span class="string">"gupeng"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *这里将x对象赋值到当前局部变量中，减少不必要的指针路径解析运算</span></span><br><span class="line"><span class="comment"> *一般用于在在方法中将this对象局部化，比如：var this_ = this;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> x_ = x;</span><br><span class="line"><span class="built_in">console</span>.log(x_.name+<span class="string">'的小名是'</span>+x_nick_name);</span><br></pre></td></tr></table></figure>
+                <p>#JDK8新特新–Lambda(4) lambda原生接口应用</p>
+<ul>
+<li><p><strong>lambda表达式接口应用</strong><br>   分为四大原生接口<br></p>
+<pre><code>    Consumer&lt;T&gt; : 消费型接口
+          void accept(T t);
+    Supplier&lt;T&gt; : 供给型接口
+          T get(); 
+    Function&lt;T, R&gt; : 函数型接口
+            R apply(T t);
+    Predicate&lt;T&gt; : 断言型接口(判断操作)
+            boolean test(T t);
+
+消费型接口
+
+  //Predicate&lt;T&gt; 断言型接口：
+  @Test
+  public void test1(){
+      happy(10000, (m) -&gt; System.out.println(&quot;陪女朋友逛街，每次消费：&quot; + m + &quot;元&quot;));
+  } 
+  public void happy(double money, Consumer&lt;Double&gt; con){
+      con.accept(money);
+  }
+供给型接口
+
+   //Supplier&lt;T&gt; 供给型接口 :
+  @Test
+  public void test2(){
+      List&lt;Integer&gt; numList = getNumList(10, () -&gt; (int)(Math.random() * 100));
+
+      for (Integer num : numList) {
+          System.out.println(num);
+      }
+  }
+
+  //需求：产生指定个数的整数，并放入集合中
+  public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup){
+      List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+
+      for (int i = 0; i &lt; num; i++) {
+          Integer n = sup.get();
+          list.add(n);
+      }
+
+      return list;
+  }
+
+函数型接口
+
+  //Function&lt;T, R&gt; 函数型接口：
+  @Test
+  public void test3(){
+      String newStr = strHandler(&quot;\t\t\t 我大尚硅谷威武   &quot;, (str) -&gt; str.trim());
+      System.out.println(newStr);
+
+      String subStr = strHandler(&quot;我大尚硅谷威武&quot;, (str) -&gt; str.substring(2, 5));
+      System.out.println(subStr);
+  }
+
+  //需求：用于处理字符串
+  public String strHandler(String str, Function&lt;String, String&gt; fun){
+      return fun.apply(str);
+  }
+
+断言型接口
+
+  //Predicate&lt;T&gt; 断言型接口：
+  @Test
+  public void test4(){
+      List&lt;String&gt; list = Arrays.asList(&quot;Hello&quot;, &quot;atguigu&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);
+      List&lt;String&gt; strList = filterStr(list, (s) -&gt; s.length() &gt; 3);
+
+      for (String str : strList) {
+          System.out.println(str);
+      }
+  }
+
+  //需求：将满足条件的字符串，放入集合中
+  public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre){
+      List&lt;String&gt; strList = new ArrayList&lt;&gt;();
+
+      for (String str : list) {
+          if(pre.test(str)){
+              strList.add(str);
+          }
+      }
+
+      return strList;
+  }
+</code></pre><p>   这四大接口是比较典型的应用接口，这样我们就不用每次使用都要自己来创建了，同样但业务需求无法满足的使用，我们就也可以自定义函数接口<br><br>   另外还有一些其他的子接口     </p>
+<p>   <img src="https://i.imgur.com/5nuxfQk.jpg" alt=""></p>
+</li>
+</ul>
 
 
                 <hr>
@@ -209,9 +294,13 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/03/20/js原型对象1/" data-toggle="tooltip" data-placement="top" title="js原型对象1">&larr; Previous Post</a>
+                            <a href="/2018/07/22/JDK8新特性-Lambda-3/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(3)">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/JDK8新特性-Lambda-5/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(5)">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -237,9 +326,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#前端开发" title="前端开发">前端开发</a>
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
                         
-                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
                         
                     </div>
                 </section>
@@ -252,17 +341,7 @@
                 <ul class="list-inline">
 
                     
-                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-                    
                         <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                        <li><a href="#" target="_blank">Foo</a></li>
-                    
-                        <li><a href="#" target="_blank">Bar</a></li>
-                    
-                        <li><a href="#" target="_blank">Example Friends</a></li>
-                    
-                        <li><a href="#" target="_blank">It helps SEO</a></li>
                     
                 </ul>
                 
@@ -324,44 +403,37 @@
                 
                 
                 
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
                     <li>
-                        <a target="_blank"  href="https://github.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
                         </a>
                     </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
                 
                 
-                    <li>
-                        <a target="_blank" href="http://www.jianshu.com/u/2b10ebdd9c0f">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">简</i>
-                            </span>
-                        </a>
-                    </li>
                 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
                 
                 
 
@@ -371,13 +443,13 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; huyue&#39;s Blog 2018
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    Theme by <a href="http://feeljblog">feelj</a>
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
                     </span>
-                    Ported by <a href="https://huyuee.github.io/blog/">huyue</a> |
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
                     <!-- 项目star和地址 -->
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -460,7 +532,7 @@
 <script>
     // dynamic User by Hux
     var _gaId = 'UA-49627206-1';
-    var _gaDomain = 'huangxuan.me';
+    var _gaDomain = 'feeljblog';
 
     // Originial
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

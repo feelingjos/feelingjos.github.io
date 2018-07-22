@@ -13,11 +13,11 @@
 
     <title>
         
-          古朋的博客 | huyue&#39;s Blog
+          JDK8新特性--Lambda(3) - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/i_dont_wanna_use_default_archives/2017/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -67,7 +67,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">huyue&#39;s Blog</a>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -147,7 +147,204 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                        
+                    </div>
+                    <h1>JDK8新特性--Lambda(3)</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="jdk8-xin-te-xing-lambda-3-lambda-ying-yong">JDK8新特性–Lambda(3) lambda应用</span><a href="#jdk8-xin-te-xing-lambda-3-lambda-ying-yong" class="header-anchor">#</a></h1><ul>
+<li><p><strong>lambda表达式应用</strong></p>
+<blockquote>
+<p>lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符<br><br>  箭头操作符将 Lambda 表达式拆分成两部分<br>  看下面这段代码</p>
+</blockquote>
+<pre><code>//使用lambda对员工信息的各项比较
+ Collections.sort(emps, (e1, e2) -&gt; {
+    if(e1.getAge() == e2.getAge()){
+            return e1.getName().compareTo(e2.getName());
+    }else{
+        return -Integer.compare(e1.getAge(), e2.getAge());
+    }
+});
+</code></pre><p>   对字符串处理</p>
+<pre><code> @FunctionalInterface
+ public interface MyFunction {
+    public String getValue(String str);
+ }
+
+ public String strHandler(String str, MyFunction mf){
+     return mf.getValue(str);
+ }
+ tring trimStr = strHandler(&quot;\t\t\t hello lambda&quot;, (str) -&gt; str.trim());
+System.out.println(trimStr);
+
+String upper = strHandler(&quot;HELLO lambda&quot;, (str) -&gt; str.toUpperCase());
+System.out.println(upper);
+
+String newStr = strHandler(&quot;大家好，我是lambda&quot;, (str) -&gt; str.substring(2, 5));
+System.out.println(newStr);
+</code></pre><p>   使用jdk原生接口Function&lt;T, R&gt;</p>
+<pre><code>public String strHandler(String str, Function&lt;String, String&gt; fun){
+    return fun.apply(str);
+}
+
+tring trimStr = strHandler(&quot;\t\t\t hello lambda&quot;, (str) -&gt; str.trim());
+System.out.println(trimStr);
+
+String upper = strHandler(&quot;HELLO lambda&quot;, (str) -&gt; str.toUpperCase());
+System.out.println(upper);
+
+String newStr = strHandler(&quot;大家好，我是lambda&quot;, (str) -&gt; str.substring(2, 5));
+System.out.println(newStr);
+</code></pre></li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/JDK8新特性-Lambda-2/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(2)">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/JDK8新特性-Lambda-4/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(4)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->
@@ -159,44 +356,37 @@
                 
                 
                 
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
                     <li>
-                        <a target="_blank"  href="https://github.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
                         </a>
                     </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
                 
                 
-                    <li>
-                        <a target="_blank" href="http://www.jianshu.com/u/2b10ebdd9c0f">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">简</i>
-                            </span>
-                        </a>
-                    </li>
                 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/huyuee">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
                 
                 
 
@@ -206,13 +396,13 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; huyue&#39;s Blog 2018
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a>
+                    Theme by <a href="http://feeljblog">feelj</a>
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
                     </span>
-                    Ported by <a href="https://huyuee.github.io/blog/">huyue</a> |
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
                     <!-- 项目star和地址 -->
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -295,7 +485,7 @@
 <script>
     // dynamic User by Hux
     var _gaId = 'UA-49627206-1';
-    var _gaDomain = 'huangxuan.me';
+    var _gaDomain = 'feeljblog';
 
     // Originial
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
