@@ -184,27 +184,20 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-1/">
+    <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/">
         <h2 class="post-title">
-            JDK8新特性--Lambda(1)
+            JDK8新特性--Stream API 并行流和串行流
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            JDK8新特新–Lambda(1) 初识lambda#
-什么是lambda表达式 
-
-lambda可以理解为一个匿名函数类,使代码更简洁使用lambda表达式前 
-
-//使用匿名内部类
-Comparator&lt;String&gt; com = new Comparator&lt;String&gt;(){
-    @Override
-    public int compare(Stri......
+            
+JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流   并行流就是把一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流。Java 8 中将并行进行了优化，我们可以很容易的对数据进行并行操作。Stream API 可以声明性地通过parallel() 与sequential() 在并行流与顺序流之间进行切换。了解并行流前我们可以了解一下Fork......
         </div>
     </a>
     <p class="post-meta">
-        Posted by 古朋 on
+        Posted by feelj on
         2018-07-22
     </p>
 
@@ -267,22 +260,20 @@ lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+    <a href="/2018/07/22/JDK8新特性-Optional容器类/">
         <h2 class="post-title">
-            JDK8新特性--Lambda(4)
+            JDK8新特性--Optional使用
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            #JDK8新特新–Lambda(4) lambda原生接口应用
-
-lambda表达式接口应用   分为四大原生接口
-    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接......
+            
+JDK8新特新–OptionalOptional   出现optional类的目的是为了避免空指针异常   通过代码来看看它的功能特点吧
+//通过of方法可以创建optional实例
+Optional&lt;Employee&gt; op = Optional.of(new Employee());
+Employee emp = op.get();
+System.out.println(e......
         </div>
     </a>
     <p class="post-meta">
@@ -323,6 +314,91 @@ JDK8新特新–Lambda(5) 方法引用与构造器引用lambda表达式接口应
 
 <div class="post-preview">
 
+    <a href="/2018/07/22/JDK8新特性-Lambda-1/">
+        <h2 class="post-title">
+            JDK8新特性--Lambda(1)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            JDK8新特新–Lambda(1) 初识lambda#
+什么是lambda表达式 
+
+lambda可以理解为一个匿名函数类,使代码更简洁使用lambda表达式前 
+
+//使用匿名内部类
+Comparator&lt;String&gt; com = new Comparator&lt;String&gt;(){
+    @Override
+    public int compare(Stri......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by 古朋 on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-全新日期api/">
+        <h2 class="post-title">
+            JDK8新特性--全新日期api
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+JDK8新特新–全新日期api全新日期api  再java.time下，用于解决老日期api的线程安全问题
+
+LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。
+
+  
+
+Instant 时间戳 用于“时间戳”......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+        <h2 class="post-title">
+            JDK8新特性--Lambda(4)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            #JDK8新特新–Lambda(4) lambda原生接口应用
+
+lambda表达式接口应用   分为四大原生接口
+    Consumer&lt;T&gt; : 消费型接口
+          void accept(T t);
+    Supplier&lt;T&gt; : 供给型接口
+          T get(); 
+    Function&lt;T, R&gt; : 函数型接......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/07/22/JDK8新特性-Stream API/">
         <h2 class="post-title">
             JDK8新特性--Stream API
@@ -343,12 +419,47 @@ JDK8新特新–Stream API Stream api   Java8中有两大最为重要的改变�
 </div>
 <hr>
 
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-接口默认方法/">
+        <h2 class="post-title">
+            JDK8新特性--接口默认方法
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+JDK8新特新–接口默认方法接口默认方法   即接口中一个有方法的实现
+ public interface InterfaceDef {
+    //接口中通过default来修饰方式，可以有默认实现
+    default String getName() {
+        return &quot;xxxx&quot;;
+    }
+
+}
+
+接口默认方法的”类优先”原则若一个接口中定......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/page/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -374,7 +485,7 @@ JDK8新特新–Stream API Stream api   Java8中有两大最为重要的改变�
                     <div class="tags">
                         
                             
-                            <a href="/tags/#java8" title="java8" rel="6">java8</a>
+                            <a href="/tags/#java8" title="java8" rel="11">java8</a>
                             
                         
                             
@@ -382,9 +493,11 @@ JDK8新特新–Stream API Stream api   Java8中有两大最为重要的改变�
                             
                         
                             
-                        
+                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
                             
                         
+                            
+                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
                             
                         
                             
