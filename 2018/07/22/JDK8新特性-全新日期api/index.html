@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          JDK8新特性--全新日期api - feelj | feelj&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-全新日期api/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Optional" title="Optional">Optional</a>
+                        
+                    </div>
+                    <h1>JDK8新特性--全新日期api</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <ul>
+<li><p><strong><font size="6">JDK8新特新–全新日期api</font></strong><br><br><strong>全新日期api</strong><br>  再java.time下，用于解决老日期api的线程安全问题</p>
+<blockquote>
+<p>LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。</p>
+</blockquote>
+<p>  <img src="https://i.imgur.com/UyzRjpu.jpg" alt=""></p>
+<blockquote>
+<p>Instant 时间戳 用于“时间戳”的运算。它是以Unix元年(传统的设定为UTC时区1970年1月1日午夜时分)开始所经历的描述进行运算</p>
+</blockquote>
+<pre><code>1.7以前的问题
+
+ SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);
+
+ Callable&lt;Date&gt; task = new Callable&lt;Date&gt;() {
+
+     @Override
+     public Date call() throws Exception {
+         return sdf.parse(&quot;20161121&quot;);
+     }
+
+ };
+
+ ExecutorService pool = Executors.newFixedThreadPool(10);
+
+ List&lt;Future&lt;Date&gt;&gt; results = new ArrayList&lt;&gt;();
+
+ for (int i = 0; i &lt; 10; i++) {
+     results.add(pool.submit(task));
+ }
+
+ for (Future&lt;Date&gt; future : results) {
+     System.out.println(future.get());
+ }
+
+ pool.shutdown();
+
+ 运行会出现线程安全问题，那么我们通过有DateFormatThreadLocal加锁实现,
+
+ public class DateFormatThreadLocal {
+
+     private static final ThreadLocal&lt;DateFormat&gt; df = new ThreadLocal&lt;DateFormat&gt;(){
+
+         protected DateFormat initialValue(){
+             return new SimpleDateFormat(&quot;yyyyMMdd&quot;);
+         }
+
+     };
+
+     public static final Date convert(String source) throws ParseException{
+         return df.get().parse(source);
+     }
+
+ }
+
+ Callable&lt;Date&gt; task = new Callable&lt;Date&gt;() {
+
+     @Override
+     public Date call() throws Exception {
+         //return sdf.parse(&quot;20161121&quot;);
+         return DateFormatThreadLocal.convert(&quot;20161121&quot;);
+     }
+
+ };
+ //这样就解决了
+
+ //那么到了1.8后是使用不可变date
+ DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyyMMdd&quot;);
+
+ Callable&lt;LocalDate&gt; task = new Callable&lt;LocalDate&gt;() {
+
+     @Override
+     public LocalDate call() throws Exception {
+         LocalDate ld = LocalDate.parse(&quot;20161121&quot;, dtf);
+         return ld;
+     }
+
+ };
+
+ ExecutorService pool = Executors.newFixedThreadPool(10);
+
+ List&lt;Future&lt;LocalDate&gt;&gt; results = new ArrayList&lt;&gt;();
+
+ for (int i = 0; i &lt; 10; i++) {
+     results.add(pool.submit(task));
+ }
+
+ for (Future&lt;LocalDate&gt; future : results) {
+     System.out.println(future.get());
+ }
+
+ pool.shutdown();
+ //运行没异常，说明线程是安全的
+</code></pre><blockquote>
+<p>LocalDate</p>
+</blockquote>
+<pre><code>LocalDateTime lat=LocalDateTime.now();
+System.out.println(lat);//系统当前时间
+
+LocalDateTime of = LocalDateTime.of(2017, 10, 19, 13, 22, 33);
+System.out.println(of);//指定年月日参数
+
+LocalDateTime plusYears = lat.plusYears(2);
+System.out.println(plusYears);//加2年
+
+LocalDateTime minusMinutes = lat.minusMinutes(2);
+System.out.println(minusMinutes);//减两个月
+
+System.out.println(lat.getYear());//获取年
+System.out.println(lat.getMonth());//获取月
+System.out.println(lat.getMonthValue());//获取月
+
+System.out.println(lat.getHour());//小时
+System.out.println(lat.getMinute());//分钟
+System.out.println(lat.getSecond());//秒
+</code></pre><blockquote>
+<p>Instant : 时间戳。 （使用 Unix 元年  1970年1月1日 00:00:00 所经历的毫秒值）</p>
+</blockquote>
+<pre><code>Instant ins = Instant.now();  //默认使用 UTC 时区
+System.out.println(ins);
+
+//偏移量运算
+OffsetDateTime odt = ins.atOffset(ZoneOffset.ofHours(8));
+System.out.println(odt);
+
+System.out.println(ins.getNano());
+
+Instant ins2 = Instant.ofEpochSecond(5);
+System.out.println(ins2);
+</code></pre><blockquote>
+<p>Duration : 用于计算两个“时间”间隔<br><br>   Period : 用于计算两个“日期”间隔</p>
+</blockquote>
+<pre><code>Instant ins1 = Instant.now();
+
+System.out.println(&quot;--------------------&quot;);
+try {
+    Thread.sleep(1000);
+} catch (InterruptedException e) {
+}
+
+Instant ins2 = Instant.now();
+
+System.out.println(&quot;所耗费时间为：&quot; + Duration.between(ins1, ins2));
+
+System.out.println(&quot;----------------------------------&quot;);
+
+LocalDate ld1 = LocalDate.now();
+LocalDate ld2 = LocalDate.of(2011, 1, 1);
+
+Period pe = Period.between(ld2, ld1);
+System.out.println(pe.getYears());
+System.out.println(pe.getMonths());
+System.out.println(pe.getDays());
+</code></pre><blockquote>
+<p>TemporalAdjuster : 时间校正器。有时我们可能需要获取例如：将日期调整到“下个周日”等操作。<br>TemporalAdjusters : 该类通过静态方法提供了大量的常用TemporalAdjuster 的实现。</p>
+</blockquote>
+<pre><code>LocalDateTime ldt = LocalDateTime.now();
+System.out.println(ldt);
+
+LocalDateTime ldt2 = ldt.withDayOfMonth(10);
+System.out.println(ldt2);
+
+LocalDateTime ldt3 = ldt.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+System.out.println(ldt3);
+
+//自定义：下一个工作日
+LocalDateTime ldt5 = ldt.with((l) -&gt; {
+    LocalDateTime ldt4 = (LocalDateTime) l;
+
+    DayOfWeek dow = ldt4.getDayOfWeek();
+
+    if(dow.equals(DayOfWeek.FRIDAY)){
+        return ldt4.plusDays(3);
+    }else if(dow.equals(DayOfWeek.SATURDAY)){
+        return ldt4.plusDays(2);
+    }else{
+        return ldt4.plusDays(1);
+    }
+});
+
+System.out.println(ldt5);
+</code></pre><blockquote>
+<p>java.time.format.DateTimeFormatter 类：该类提供了三种格式化方法：</p>
+<pre><code>.预定义的标准格式
+.语言环境相关的格式
+.自定义的格式
+</code></pre></blockquote>
+<pre><code>//DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE;
+
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy年MM月dd日 HH:mm:ss E&quot;);
+
+LocalDateTime ldt = LocalDateTime.now();
+String strDate = ldt.format(dtf);
+
+System.out.println(strDate);
+
+LocalDateTime newLdt = ldt.parse(strDate, dtf);
+System.out.println(newLdt);
+</code></pre><blockquote>
+<p>Java8 中加入了对时区的支持，带时区的时间为分别为：<br>  ZonedDate、ZonedTime、ZonedDateTime<br>  其中每个时区都对应着ID，地区ID都为“{区域}/{城市}”的格式<br>  例如：Asia/Shanghai 等<br>  ZoneId：该类中包含了所有的时区信息<br>  getAvailableZoneIds() : 可以获取所有时区时区信息<br>  of(id) : 用指定的时区信息获取ZoneId 对象</p>
+</blockquote>
+<pre><code>Set&lt;String&gt; set = ZoneId.getAvailableZoneIds();
+set.forEach(System.out::println);//支持时区列表
+
+LocalDateTime ldt = LocalDateTime.now(ZoneId.of(&quot;Asia/Shanghai&quot;));
+System.out.println(ldt);
+
+ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of(&quot;US/Pacific&quot;));
+System.out.println(zdt);
+</code></pre></li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/JDK8新特性-Optional容器类/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Optional使用">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/JDK8新特性-接口默认方法/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--接口默认方法">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                        
+                          <a class="tag" href="/tags/#Optional" title="Optional">Optional</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
+                    <li>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
+                        </a>
+                    </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+
+
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
+                    <br>
+                    Theme by <a href="http://feeljblog">feelj</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
+                    <!-- 项目star和地址 -->
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.feeljblog.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'feeljblog';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
