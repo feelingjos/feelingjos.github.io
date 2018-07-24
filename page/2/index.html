@@ -184,21 +184,52 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-注解增强/">
+    <a href="/2018/07/22/JDK8新特性-全新日期api/">
         <h2 class="post-title">
-            JDK8新特性--注解增强
+            JDK8新特性--全新日期api
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             
-JDK8新特新–注解增强重复注解类型注解  重复注解的注解需用@Repeatable(容器类.class)来修饰
+JDK8新特新–全新日期api全新日期api  再java.time下，用于解决老日期api的线程安全问题
 
-@Repeatable(MyAnnotions.class)
-@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
-@Retention(RetentionPolicy.RUNTIME)
-......
+LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。
+
+  
+
+Instant 时间戳 用于“时间戳”......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/ELK日志分析平台搭建/">
+        <h2 class="post-title">
+            ELK日志分析平台
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+学习使用Elasticsearch + Logstash + Kibana
+
+准备工作Elasticsearch 6.x，Logstash 6.x ，Kibana 6.x
+
+  安装好后创建logstash文件
+input{
+    file {
+       //日志路径
+       path =&gt; &quot;H:\house\api-gateway\logs\log-info......
         </div>
     </a>
     <p class="post-meta">
@@ -252,11 +283,15 @@ JDK8新特新–注解增强重复注解类型注解  重复注解的注解需�
                             
                         
                             
-                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
+                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
                             
                         
                             
-                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
+                        
+                            
+                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
+                            
+                        
                             
                         
                             

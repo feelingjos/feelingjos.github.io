@@ -184,42 +184,20 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/">
+    <a href="/2018/07/22/JDK8新特性-Optional容器类/">
         <h2 class="post-title">
-            JDK8新特性--Stream API 并行流和串行流
+            JDK8新特性--Optional使用
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             
-JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流   并行流就是把一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流。Java 8 中将并行进行了优化，我们可以很容易的对数据进行并行操作。Stream API 可以声明性地通过parallel() 与sequential() 在并行流与顺序流之间进行切换。了解并行流前我们可以了解一下Fork......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-Lambda-2/">
-        <h2 class="post-title">
-            JDK8新特性--Lambda(2)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            JDK8新特新–Lambda(2) lambda基础语法#
-lambda表达式语法
-
-lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
-
-Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.len......
+JDK8新特新–OptionalOptional   出现optional类的目的是为了避免空指针异常   通过代码来看看它的功能特点吧
+//通过of方法可以创建optional实例
+Optional&lt;Employee&gt; op = Optional.of(new Employee());
+Employee emp = op.get();
+System.out.println(e......
         </div>
     </a>
     <p class="post-meta">
@@ -248,32 +226,6 @@ lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作
 //使用lambda对员工信息的各项比较
  Collections.sort(emps, (e1, e2) -&gt; {
     if(e1.getAge(......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-Optional容器类/">
-        <h2 class="post-title">
-            JDK8新特性--Optional使用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-JDK8新特新–OptionalOptional   出现optional类的目的是为了避免空指针异常   通过代码来看看它的功能特点吧
-//通过of方法可以创建optional实例
-Optional&lt;Employee&gt; op = Optional.of(new Employee());
-Employee emp = op.get();
-System.out.println(e......
         </div>
     </a>
     <p class="post-meta">
@@ -343,22 +295,16 @@ Comparator&lt;String&gt; com = new Comparator&lt;String&gt;(){
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-全新日期api/">
+    <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/">
         <h2 class="post-title">
-            JDK8新特性--全新日期api
+            JDK8新特性--Stream API 并行流和串行流
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             
-JDK8新特新–全新日期api全新日期api  再java.time下，用于解决老日期api的线程安全问题
-
-LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。
-
-  
-
-Instant 时间戳 用于“时间戳”......
+JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流   并行流就是把一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流。Java 8 中将并行进行了优化，我们可以很容易的对数据进行并行操作。Stream API 可以声明性地通过parallel() 与sequential() 在并行流与顺序流之间进行切换。了解并行流前我们可以了解一下Fork......
         </div>
     </a>
     <p class="post-meta">
@@ -371,22 +317,47 @@ Instant 时间戳 用于“时间戳”......
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+    <a href="/2018/07/22/JDK8新特性-注解增强/">
         <h2 class="post-title">
-            JDK8新特性--Lambda(4)
+            JDK8新特性--注解增强
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            #JDK8新特新–Lambda(4) lambda原生接口应用
+            
+JDK8新特新–注解增强重复注解类型注解  重复注解的注解需用@Repeatable(容器类.class)来修饰
 
-lambda表达式接口应用   分为四大原生接口
-    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接......
+@Repeatable(MyAnnotions.class)
+@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+@Retention(RetentionPolicy.RUNTIME)
+......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-Lambda-2/">
+        <h2 class="post-title">
+            JDK8新特性--Lambda(2)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            JDK8新特新–Lambda(2) lambda基础语法#
+lambda表达式语法
+
+lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
+
+Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.len......
         </div>
     </a>
     <p class="post-meta">
@@ -450,6 +421,34 @@ JDK8新特新–接口默认方法接口默认方法   即接口中一个有方�
 </div>
 <hr>
 
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+        <h2 class="post-title">
+            JDK8新特性--Lambda(4)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            #JDK8新特新–Lambda(4) lambda原生接口应用
+
+lambda表达式接口应用   分为四大原生接口
+    Consumer&lt;T&gt; : 消费型接口
+          void accept(T t);
+    Supplier&lt;T&gt; : 供给型接口
+          T get(); 
+    Function&lt;T, R&gt; : 函数型接......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
 
 
 <!-- Pager -->
@@ -493,11 +492,15 @@ JDK8新特新–接口默认方法接口默认方法   即接口中一个有方�
                             
                         
                             
-                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
+                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
                             
                         
                             
-                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
+                        
+                            
+                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
+                            
+                        
                             
                         
                             

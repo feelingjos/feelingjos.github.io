@@ -13,11 +13,11 @@
 
     <title>
         
-          JDK8新特性--注解增强 - feelj | feelj&#39;s Blog
+          feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-注解增强/">
+    <link rel="canonical" href="http://www.feeljblog.com/tags/ELK/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,184 +147,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('post-bg-2015.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
-                        
-                          <a class="tag" href="/tags/#新特新" title="新特新">新特新</a>
-                        
-                    </div>
-                    <h1>JDK8新特性--注解增强</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by feelj on
-                        2018-07-22
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <ul>
-<li><strong><font size="6">JDK8新特新–注解增强</font></strong><br><br><strong>重复注解</strong><br><br><strong>类型注解</strong><br>  重复注解的注解需用@Repeatable(容器类.class)来修饰</li>
-</ul>
-<pre><code>@Repeatable(MyAnnotions.class)
-@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface MyAnnotion {
-
-    String value() default &quot;hello annotion&quot;;
-
-}
-
-@MyAnnotion(&quot;hello&quot;)
-@MyAnnotion(&quot;world&quot;)
-public void show() {
-
-}
-
-//通过注解调用
-Method method = Myanno.class.getMethod(&quot;show&quot;);
-MyAnnotion[] annotationsByType = method.getAnnotationsByType(MyAnnotion.class);
-
-for (MyAnnotion myAnnotion : annotationsByType) {
-    System.out.println(myAnnotion.value());
-}
-</code></pre>
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API 并行流和串行流">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2018/07/22/JDK8新特性-Lambda-2/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(2)">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                       
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
-                        
-                          <a class="tag" href="/tags/#新特新" title="新特新">新特新</a>
-                        
-                    </div>
-                </section>
-                
-
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-
-                    
-                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-                    
-                </ul>
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
     <!-- Footer -->
     <!-- Footer -->
