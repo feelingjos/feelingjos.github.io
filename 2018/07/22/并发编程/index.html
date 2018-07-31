@@ -13,11 +13,11 @@
 
     <title>
         
-          feelj | feelj&#39;s Blog
+          并发编程  线程状态与线程多线程创建 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/tags/elasticsearch/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/并发编程/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,332 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                    <h1>并发编程  线程状态与线程多线程创建</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="xian-cheng-zhuang-tai">线程状态</span><a href="#xian-cheng-zhuang-tai" class="header-anchor">#</a></h1><p>  <img src="https://i.imgur.com/VC3rog8.gif" alt=""><br><br>  通过图中我们可以知道,线程分为六个状态(也叫生命周期)</p>
+<ul>
+<li>初始(NEW): 线程实例被创建，还未启动(未执行start())</li>
+<li>运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态</li>
+<li>阻塞(BLOCKED):阻塞状态</li>
+<li>等待(WAITING):该状态下，线程需要等待其他线程的通知</li>
+<li>超时等待(TIME_WAITING): 与等待不同的是，它可以在指定的时间内自行返回</li>
+<li><p>终止(TERMINATED): 线程执行结束</p>
+<p> 线程的各个状态可通过不同方法来转换</p>
+</li>
+</ul>
+<h1><span id="duo-xian-cheng-chuang-jian">多线程创建</span><a href="#duo-xian-cheng-chuang-jian" class="header-anchor">#</a></h1><ul>
+<li><p>继承Thread类</p>
+<pre><code>public class Demo1 extends Thread{
+      //run方法的方法体为子线程的任务
+      @Override
+      public void run() {
+           while (!interrupted()) {
+                System.out.println(getName()+&quot;:线程执行了...&quot;);
+           }
+      }
+
+      //通过start()启动执行              
+} 
+</code></pre></li>
+<li><p>实现Runnable接口</p>
+<pre><code>public class Demo2 implements Runnable{
+
+    @Override
+    public void run() {
+        while(true) {
+            System.out.println(&quot;thread running...&quot;);
+        }
+    }
+
+} 
+</code></pre></li>
+<li><p>匿名内部类的方式</p>
+<pre><code>//当线程只使用一次时，可以用这种方式创建
+new Thread() {
+    @Override
+    public void run() {
+
+    }
+}.start();
+
+new Thread(new Runnable() {
+
+    public void run() {
+
+    }
+}).start();
+</code></pre></li>
+<li><p>带返回值的线程</p>
+<pre><code>//实现callable实现call 方法为子线程任务
+public class Demo4 implements Callable&lt;Integer&gt;{
+
+    public static void main(String[] args) throws       InterruptedException, ExecutionException {
+        Demo4 d=new Demo4();
+
+        FutureTask&lt;Integer&gt; taks=new FutureTask&lt;Integer&gt;(d);
+
+        Thread t=new Thread(taks);
+        t.start();
+
+        Integer integer = taks.get();
+        System.out.println(integer);
+
+    }
+
+    public Integer call() throws Exception {
+        System.out.println(&quot;正在进行紧张的计算&quot;);
+        Thread.sleep(3000);
+        return 1;
+    }
+</code></pre></li>
+</ul>
+<pre><code>}
+</code></pre><ul>
+<li><p>定时器（quartz）</p>
+<pre><code>Timer tiemr =new Timer();
+
+tiemr.schedule(new TimerTask() {
+
+    @Override
+    public void run() {
+        System.out.println(&quot;执行了&quot;);                
+    }
+},0,1000);
+</code></pre></li>
+<li><p>线程池的实现</p>
+<pre><code>//通过jdk的线程池框架实线，设置线程大小为10
+ExecutorService threadPool=Executors.newFixedThreadPool(10);
+for (int i=0;i&lt;10;i++) {
+    threadPool.execute(new Runnable() {
+        public void run() {
+            System.out.println(Thread.currentThread().getName());                
+        }
+    });
+}
+
+threadPool.shutdown();//停止所有线程
+</code></pre></li>
+<li><p>Lambda表达式实现</p>
+<pre><code>public int add(List&lt;Integer&gt; values) {
+    //获取并行流，并流的任务执行也是一个多线程
+    values.parallelStream().forEach(System.out::println);
+    return values.parallelStream().mapToInt(a -&gt; a).sum();
+}
+
+//准备数据
+List&lt;Integer&gt; values=Arrays.asList(10,20,30,40);
+//调用执行
+int res = new Demo7().add(values);
+System.out.println(res);
+</code></pre></li>
+<li><p>Spring实现多线程</p>
+<pre><code>创建一个maven工程，pom文件添加
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+        &lt;version&gt;5.0.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+//spring 配置类
+@Configuration
+@Component(&quot;com.feelingj.thread.t1&quot;)
+@EnableAsync
+public class Config {
+
+}
+
+@Service
+public class DemoService {
+
+    //在spring中使用，async注解来创建异步(多线程)任务
+    @Async
+    public void a() throws InterruptedException {
+        //a方法中的任务应有一个子线程来完成
+        while (true) {
+            System.out.println(&quot;a&quot;);
+            Thread.sleep(2000);
+        }
+    }
+
+    //在spring中使用，async注解来创建异步(多线程)任务
+    @Async
+    public void b() {
+        //b方法中的任务应有一个子线程来完成
+        while (true) {
+            System.out.println(&quot;b&quot;);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
+
+//通过spring上下问调用
+AnnotationConfigApplicationContext ac=new AnnotationConfigApplicationContext(Config.class);
+
+DemoService ds = ac.getBean(DemoService.class);
+
+try {
+    ds.a();
+} catch (InterruptedException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+ds.b();
+</code></pre></li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/JDK8新特性-注解增强/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--注解增强">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->
