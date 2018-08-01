@@ -268,10 +268,8 @@ public class Demo4 implements Callable&lt;Integer&gt;{
         Thread.sleep(3000);
         return 1;
     }
+}
 </code></pre></li>
-</ul>
-<pre><code>}
-</code></pre><ul>
 <li><p>定时器（quartz）</p>
 <pre><code>Timer tiemr =new Timer();
 
@@ -369,6 +367,126 @@ try {
 }
 ds.b();
 </code></pre></li>
+<li><p>在学习多线程之前，我们来了解一下线程带来的风险，大致有三种:</p>
+<ul>
+<li><p>线程安全问题</p>
+<pre><code>//序列生成器
+public class Sequence {
+
+    private int value;
+
+    //使用synchronized同步块之后便解决了重复问题
+    public synchronized int getNext() {
+        return value++;
+    }
+
+    public static void main(String[] args) {
+        Sequence s = new Sequence();
+        /*
+           单线程启动一切正常
+         while (true) { System.out.println(s.getNext()); }
+         */
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        //当三个线程启动时，就会出现序列重复问题了
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>多线程环境下</li>
+<li>多个线程共享一个资源</li>
+<li>对资源进行读写(非原子性)操作</li>
+<li><p>synchronized原理与使用 </p>
+<ul>
+<li>原理<ul>
+<li>内置锁:被synchronized修饰的代码，会有一个内置锁</li>
+<li>互斥锁:一个线程再执行，另一个线程就不能进入了</li>
+</ul>
+</li>
+<li>使用<ul>
+<li>修饰静态方法</li>
+<li>修饰普通方法</li>
+<li>修饰代码块</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>活跃性问题</li>
+<li>死锁:死锁是资源等待与释放不协调导致的，通俗的将就是A线程等待B线程释放锁，而B线程又在等待A线程释放锁，导致双方都不释放</li>
+<li><p>饥饿:饥饿是线程优先级导致，多线程在抢资源的时候，有的线程优先级低，所以无法获取到执行的cpu资源，最后’饿死了’</p>
+<ul>
+<li>导致饥饿的问题<ul>
+<li>高优先级吞噬所有优先级的cpu时间片</li>
+<li>线程被永久阻塞再一个等待进入同步块的状态</li>
+<li>等待的线程永远不被唤醒</li>
+</ul>
+</li>
+<li><p>如何尽量避免饥饿锁</p>
+<ul>
+<li><p>设计合理的优先级</p>
+<p>  Thread t1 = new Thread(new Target());<br>  //通过setPriority设置优先级<br>  t1.setPriority(1);</p>
+</li>
+<li><p>使用锁来代替synchronized</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>活锁:活锁是指多线程执行时都办法使用资源</li>
+<li>性能问题(优化)</li>
+<li>多线程线程问题涉及到一个理念，就是多线程不一定就高效率，就执行运行速度块，这和cpu的工作原理有关，每个线程根据cpu的核数来切换cpu资源，所以每个线程的执行是根据cpu的一个时间片来分配资源的，会有一个上下文切换来处理资源，而当线程多了之后，切换上线文也是很耗资源的</li>
+</ul>
+</li>
 </ul>
 
 
@@ -379,7 +497,7 @@ ds.b();
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-注解增强/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--注解增强">&larr; Previous Post</a>
+                            <a href="/2018/07/22/synchronized原理/" data-toggle="tooltip" data-placement="top" title="并发编程  synchronized">&larr; Previous Post</a>
                         </li>
                     
                     

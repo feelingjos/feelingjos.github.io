@@ -13,11 +13,11 @@
 
     <title>
         
-          feelj | feelj&#39;s Blog
+          docker初识 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/page/2/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/docker初识/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,362 +147,168 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Welcome to come feelj&#39;s Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">on the way !</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
+                        
+                          <a class="tag" href="/tags/#容器" title="容器">容器</a>
+                        
+                    </div>
+                    <h1>docker初识</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-                <!-- Main Content -->
-
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-注解增强/">
-        <h2 class="post-title">
-            JDK8新特性--注解增强
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-JDK8新特新–注解增强重复注解类型注解  重复注解的注解需用@Repeatable(容器类.class)来修饰
-
-@Repeatable(MyAnnotions.class)
-@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
-@Retention(RetentionPolicy.RUNTIME)
-......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-接口默认方法/">
-        <h2 class="post-title">
-            JDK8新特性--接口默认方法
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-JDK8新特新–接口默认方法接口默认方法   即接口中一个有方法的实现
- public interface InterfaceDef {
-    //接口中通过default来修饰方式，可以有默认实现
-    default String getName() {
-        return &quot;xxxx&quot;;
-    }
-
-}
-
-接口默认方法的”类优先”原则若一个接口中定......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/docker初识/">
-        <h2 class="post-title">
-            docker初识
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            docker是什么#   首先我们来提出一个问题，为什么会有docker出现
-
-要解答这个问题，首先看看我们的工作场景一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作的我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种 版本的迭代之后，不同版本环境的兼容，对运维人员都是考验docker的出现就提供了一个标准化的解决方案,环境配置如此麻......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/docker安装/">
-        <h2 class="post-title">
-            docker安装
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            docker安装(以Centos为例)#  docker支持一下centos版本:centos 7(64-bit),centos6.5(64-bit)或更高版本  前提条件:目前centos仅发行版本中的内核支持docker，docker运行在centos7上，要求系统为64位，系统内核版本为3.10以上，  docker运行在centos-6.5或更高的版本上时，要求系统为64位，系统内核......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/synchronized原理/">
-        <h2 class="post-title">
-            并发编程  synchronized
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            synchronized原理与使用#
-原理
-内置锁:被synchronized修饰的代码，会有一个内置锁
-互斥锁:一个线程再执行，另一个线程就不能进入了
-
-
-使用
-修饰静态方法
-修饰普通方法
-修饰代码块
-
-
-
-...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/并发编程/">
-        <h2 class="post-title">
-            并发编程  线程状态与线程多线程创建
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            线程状态#    通过图中我们可以知道,线程分为六个状态(也叫生命周期)
-
-初始(NEW): 线程实例被创建，还未启动(未执行start())
-运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态
-阻塞(BLOCKED):阻塞状态
-等待(WAITING):该状态下，线程需要等待其他线程的通知
-超时等待(TIME_WAITING): 与等待不同的是，它可......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
+                <h1><span id="docker-shi-shi-me">docker是什么</span><a href="#docker-shi-shi-me" class="header-anchor">#</a></h1><p>   首先我们来提出一个问题，为什么会有docker出现</p>
+<ul>
+<li><p>要解答这个问题，首先看看我们的工作场景<br><br><img src="https://i.imgur.com/1vpTnhl.png" alt=""><br><br>一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作的我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种 版本的迭代之后，不同版本环境的兼容，对运维人员都是考验<br><br>docker的出现就提供了一个标准化的解决方案,环境配置如此麻烦，换一台机器，又要重新部署，费时且费力，也没什么技术含量，那么如果软件可以带环境安装，在安装的时候环境配置和开发时的一某一样的复杂过来，岂不妙哉<br><img src="https://i.imgur.com/5rytVTr.jpg" alt=""><br><br>docker通过设计理念，透过镜像(images)将产品系统核心运作的系统，配置，编译后系统，由上而下打包，达到应用程序的多平的无缝接轨运作</p>
+</li>
+<li><p>docker理念<br><br>docker是基于Go语言实现的云开源项目<br><br>docker的主要目标是”build.ship and run any app,anywhere”,也就是通过对应用组件的封装，分发，部署，运行等生命周期的管理，使用户的app(可以是一个web应用或数据库应用等等)及其环境能够做到”一次封装，到处运行”<br><br><img src="https://i.imgur.com/QTKEI9Q.jpg" alt=""><br><br>回到标题:什么是docker,解决了运行环境和配置问题软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术</p>
+</li>
+</ul>
+<ul>
+<li>docker出现之前的虚拟化技术<br><br> 虚拟机就是带环境安装的一种解决方案<br><br> 它可以在一种操作系统里面运行另一个操作系统，比如windows系统里面运行liunx系统，应用程序对此毫无感知，因为虚拟机技术实现和真实的操作系统一模一样，而对于底层系统来说，虚拟机就是一个普通文件，对其他部分毫无影响。<br> <img src="https://i.imgur.com/OpFZ7x6.jpg" alt=""><br><br> 虚拟机缺点:1.资源占用多，2冗余步骤多，3启动慢<br><br> 有这些缺点，linux发展出了另一种虚拟技术:linux容器(linux containers ,lxc)<br><br> linux 容器不是模拟一个完整的操作系统，而是对进程进行隔离，有了容器，就可以将软件运行所需要的所有资源打包到一个隔离的容器中去。<br><br> 容器与虚拟机不同，不需要捆绑一整套操作系统，只需要软件运行的库(library)资源和设置。系统因此变得高效轻量并保证部署在任何环境中的软件能始终如一地运行<br> <img src="https://i.imgur.com/atWb2qZ.jpg" alt=""><br><br> 比较docker和传统虚拟化方式的不同之处<br><br> 1.传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需要的进程<br><br> 2.而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟，因此容器要比传统虚拟机更为轻便<br><br> 3.每个容器之间互相隔离，每个容器有自己的文件系统，容器之间进程不会互相影响，能区分计算资源</li>
 </ul>
 
 
+                <hr>
 
-                <!-- 如果开启评论功能 -->
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/JDK8新特性-接口默认方法/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--接口默认方法">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/docker安装/" data-toggle="tooltip" data-placement="top" title="docker安装">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                       
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#java8" title="java8" rel="11">java8</a>
-                            
-                        
-                            
-                            <a href="/tags/#Lambda" title="Lambda" rel="5">Lambda</a>
-                            
-                        
-                            
-                            <a href="/tags/#Optional" title="Optional" rel="3">Optional</a>
-                            
-                        
-                            
-                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
-                            
-                        
-                            
-                        
-                            
-                            <a href="/tags/#docker" title="docker" rel="2">docker</a>
-                            
-                        
-                            
-                            <a href="/tags/#容器" title="容器" rel="2">容器</a>
-                            
-                        
-                            
-                            <a href="/tags/#并发编程" title="并发编程" rel="2">并发编程</a>
-                            
-                        
-                            
-                            <a href="/tags/#多线程" title="多线程" rel="2">多线程</a>
-                            
+                          <a class="tag" href="/tags/#容器" title="容器">容器</a>
                         
                     </div>
                 </section>
                 
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/avatar.png" />
-                            <!-- <img src="img/avatar.png" /> -->
-                        
-
-                        
-                            <p>on the way !</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://gitee.com/feelingjos">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                </a>
-                            </li>
-                            
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/feelingjos">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-
-
-                            
-                            
-                            <li>
-                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                </a>
-                            </li>
-                            
-
-
-                            
-                        </ul>
-
-                        
-                        <hr><h5><sapn >Follow</sapn></h5>
-                        <img src="/img/wechar.jpg" />
-                        <!-- <img src="img/avatar.png" /> -->
-                        
-
-                    </div>
-                </section>
 
                 <!-- Friends Blog -->
                 
                 <hr>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
+
                     
                         <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
                     
                 </ul>
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
