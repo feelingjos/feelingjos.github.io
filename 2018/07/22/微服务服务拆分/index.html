@@ -13,11 +13,11 @@
 
     <title>
         
-          JDK8新特性--Lambda(4) - feelj | feelj&#39;s Blog
+          微服务服务拆分杂谈 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-4/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/微服务服务拆分/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,12 +165,10 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
-                        
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#微服务" title="微服务">微服务</a>
                         
                     </div>
-                    <h1>JDK8新特性--Lambda(4)</h1>
+                    <h1>微服务服务拆分杂谈</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by feelj on
@@ -193,96 +191,71 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>#JDK8新特新–Lambda(4) lambda原生接口应用</p>
+                <h1><span id="ru-he-chai-fen">如何拆分</span><a href="#ru-he-chai-fen" class="header-anchor">#</a></h1><ul>
+<li><p>找到起点和终点</p>
 <ul>
-<li><p><strong>lambda表达式接口应用</strong><br>   分为四大原生接口<br></p>
-<pre><code>    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接口
-            R apply(T t);
-    Predicate&lt;T&gt; : 断言型接口(判断操作)
-            boolean test(T t);
-
-消费型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test1(){
-      happy(10000, (m) -&gt; System.out.println(&quot;陪女朋友逛街，每次消费：&quot; + m + &quot;元&quot;));
-  } 
-  public void happy(double money, Consumer&lt;Double&gt; con){
-      con.accept(money);
-  }
-供给型接口
-
-   //Supplier&lt;T&gt; 供给型接口 :
-  @Test
-  public void test2(){
-      List&lt;Integer&gt; numList = getNumList(10, () -&gt; (int)(Math.random() * 100));
-
-      for (Integer num : numList) {
-          System.out.println(num);
-      }
-  }
-
-  //需求：产生指定个数的整数，并放入集合中
-  public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup){
-      List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-
-      for (int i = 0; i &lt; num; i++) {
-          Integer n = sup.get();
-          list.add(n);
-      }
-
-      return list;
-  }
-
-函数型接口
-
-  //Function&lt;T, R&gt; 函数型接口：
-  @Test
-  public void test3(){
-      String newStr = strHandler(&quot;\t\t\t 我大尚硅谷威武   &quot;, (str) -&gt; str.trim());
-      System.out.println(newStr);
-
-      String subStr = strHandler(&quot;我大尚硅谷威武&quot;, (str) -&gt; str.substring(2, 5));
-      System.out.println(subStr);
-  }
-
-  //需求：用于处理字符串
-  public String strHandler(String str, Function&lt;String, String&gt; fun){
-      return fun.apply(str);
-  }
-
-断言型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test4(){
-      List&lt;String&gt; list = Arrays.asList(&quot;Hello&quot;, &quot;atguigu&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);
-      List&lt;String&gt; strList = filterStr(list, (s) -&gt; s.length() &gt; 3);
-
-      for (String str : strList) {
-          System.out.println(str);
-      }
-  }
-
-  //需求：将满足条件的字符串，放入集合中
-  public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre){
-      List&lt;String&gt; strList = new ArrayList&lt;&gt;();
-
-      for (String str : list) {
-          if(pre.test(str)){
-              strList.add(str);
-          }
-      }
-
-      return strList;
-  }
-</code></pre><p>   这四大接口是比较典型的应用接口，这样我们就不用每次使用都要自己来创建了，同样但业务需求无法满足的使用，我们就也可以自定义函数接口<br><br>   另外还有一些其他的子接口     </p>
-<p>   <img src="https://i.imgur.com/5nuxfQk.jpg" alt=""></p>
+<li>起点:要明白一个项目的起点，首先要搞清楚情况，是一个原有项目重构成一个微服务，或者开启新项目是的技术架构选型方案是使用微服务，即现有架构的形态</li>
+<li><p>终点:</p>
+<ul>
+<li>一个好的架构不是设计出来的，而是进价而来的，</li>
+<li>一直在演进<br>引用<a href="http://dubbo.apache.org/#!/?lang=en-us" target="_blank" rel="noopener">dubbo</a>框架的原图</li>
+</ul>
+<p><img src="https://i.imgur.com/tCvCine.jpg" alt="微服务杂谈.jpg"></p>
+</li>
+<li>传统互联网相比国外的技术要慢一些，相信都在图中所描述的路上，所以我们要明白我们的起点是重那个点上来定位</li>
+<li><p>您的系统适合上微服务么?</p>
+<ul>
+<li>业务状态不适合<ul>
+<li>系统中包含大量强事物场景</li>
+<li>业务相对稳定，迭代周期长</li>
+<li>访问压力不大，可用性要求不高</li>
+</ul>
+</li>
+<li><p>康威定律<br> 什么是康威定律，<br> Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations</p>
+<p> 任何组织在设计一套系统(广义概念上的系统)时，所交付的设计方案在结构上都与该组织的沟通保持一致<br> 这个答案很书面化，总结来说就是<strong>沟通的问题会影响系统的设计</strong></p>
+</li>
+</ul>
+</li>
+<li>微服务的特点<ul>
+<li>一系列微小的服务共同组成</li>
+<li>单独部署，在各自的进程中运行</li>
+<li>每个服务独立业务开发</li>
+<li>分布式的管理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>需要考虑的因素与坚持的原则<ul>
+<li>业务方面: 包括架构设计和解耦拆分都要考虑业务的需要</li>
+<li>成本问题:衡量拆分收益的标准是拆分后的维护成本要低过拆分前的维护成本，也就是说不能因为拆分而带来更大的维护工作。</li>
+<li>组织结构:拆分不仅仅是架构上的调整，也意味着要在组织结构上做出相应的适应性调整，确保拆分后的服务由相对独立的团队负责维护<br><img src="https://i.imgur.com/PYS2Z6i.jpg" alt="微服务杂谈-1.jpg"></li>
+<li>系统扩展: 当系统版本迭代快时，系统能否快速和高效的扩展</li>
+<li>信息安全</li>
+<li>….<br><br>根据不同场景，还有很多需要考虑的地方</li>
+</ul>
+</li>
+<li>服务拆分的方法论<br>兴趣的话也可以去看看这本书，叫《可扩展的艺术》<br><img src="https://i.imgur.com/WaNsXWN.jpg" alt="微服务杂谈-2.jpg"><br>图上为扩展立方模型(scale cube)<ul>
+<li>x轴，水平复制(通过副本的方式，复制多个，使用负载均衡来实现应用的伸缩性,提高应用程序的容量和可用度)</li>
+<li>z轴，数据分区(每个服务器运行的是服务子集，代码一样)</li>
+<li>y轴，功能结构(将不同服务的模块，服务化)<br>通过图，我们可以了解到，服务拆分的要点第一是<strong>功能</strong>，第二是<strong>数据</strong></li>
+</ul>
+</li>
+<li>如何拆”功能”<ul>
+<li>单一职责，松耦合，高内聚</li>
+<li>关注点分离<ul>
+<li>按职责</li>
+<li>按通用性</li>
+<li>按粒度级别</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>服务和数据的关系<ul>
+<li>先考虑业务功能，在考虑数据</li>
+<li>无状态服务(一个数据需要被多个服务共享才能完成一个请求，那么这个数据被称为状态，定而被依赖这个状态的服务被称为有状态服务，反之为无状态)<br><img src="https://i.imgur.com/egt8jfY.jpg" alt="微服务杂谈-3.jpg"></li>
+</ul>
 </li>
 </ul>
 
@@ -294,12 +267,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API 并行流和串行流">&larr; Previous Post</a>
+                            <a href="/2018/07/22/synchronized原理/" data-toggle="tooltip" data-placement="top" title="并发编程  synchronized">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/JDK8新特性-Stream API/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API">Next Post &rarr;</a>
+                            <a href="/2018/07/22/并发编程/" data-toggle="tooltip" data-placement="top" title="并发编程  线程状态与线程多线程创建">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -326,9 +299,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
-                        
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#微服务" title="微服务">微服务</a>
                         
                     </div>
                 </section>

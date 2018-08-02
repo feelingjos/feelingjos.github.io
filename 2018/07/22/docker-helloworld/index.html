@@ -13,11 +13,11 @@
 
     <title>
         
-          JDK8新特性--Lambda(4) - feelj | feelj&#39;s Blog
+          docker-helloworld - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-4/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/docker-helloworld/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,12 +165,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#容器" title="容器">容器</a>
                         
                     </div>
-                    <h1>JDK8新特性--Lambda(4)</h1>
+                    <h1>docker-helloworld</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by feelj on
@@ -193,97 +193,20 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>#JDK8新特新–Lambda(4) lambda原生接口应用</p>
-<ul>
-<li><p><strong>lambda表达式接口应用</strong><br>   分为四大原生接口<br></p>
-<pre><code>    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接口
-            R apply(T t);
-    Predicate&lt;T&gt; : 断言型接口(判断操作)
-            boolean test(T t);
-
-消费型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test1(){
-      happy(10000, (m) -&gt; System.out.println(&quot;陪女朋友逛街，每次消费：&quot; + m + &quot;元&quot;));
-  } 
-  public void happy(double money, Consumer&lt;Double&gt; con){
-      con.accept(money);
-  }
-供给型接口
-
-   //Supplier&lt;T&gt; 供给型接口 :
-  @Test
-  public void test2(){
-      List&lt;Integer&gt; numList = getNumList(10, () -&gt; (int)(Math.random() * 100));
-
-      for (Integer num : numList) {
-          System.out.println(num);
-      }
-  }
-
-  //需求：产生指定个数的整数，并放入集合中
-  public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup){
-      List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-
-      for (int i = 0; i &lt; num; i++) {
-          Integer n = sup.get();
-          list.add(n);
-      }
-
-      return list;
-  }
-
-函数型接口
-
-  //Function&lt;T, R&gt; 函数型接口：
-  @Test
-  public void test3(){
-      String newStr = strHandler(&quot;\t\t\t 我大尚硅谷威武   &quot;, (str) -&gt; str.trim());
-      System.out.println(newStr);
-
-      String subStr = strHandler(&quot;我大尚硅谷威武&quot;, (str) -&gt; str.substring(2, 5));
-      System.out.println(subStr);
-  }
-
-  //需求：用于处理字符串
-  public String strHandler(String str, Function&lt;String, String&gt; fun){
-      return fun.apply(str);
-  }
-
-断言型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test4(){
-      List&lt;String&gt; list = Arrays.asList(&quot;Hello&quot;, &quot;atguigu&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);
-      List&lt;String&gt; strList = filterStr(list, (s) -&gt; s.length() &gt; 3);
-
-      for (String str : strList) {
-          System.out.println(str);
-      }
-  }
-
-  //需求：将满足条件的字符串，放入集合中
-  public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre){
-      List&lt;String&gt; strList = new ArrayList&lt;&gt;();
-
-      for (String str : list) {
-          if(pre.test(str)){
-              strList.add(str);
-          }
-      }
-
-      return strList;
-  }
-</code></pre><p>   这四大接口是比较典型的应用接口，这样我们就不用每次使用都要自己来创建了，同样但业务需求无法满足的使用，我们就也可以自定义函数接口<br><br>   另外还有一些其他的子接口     </p>
-<p>   <img src="https://i.imgur.com/5nuxfQk.jpg" alt=""></p>
+                <h1><span id="docker-gou-jian-helloworld-jing-xiang">docker构建helloworld镜像</span><a href="#docker-gou-jian-helloworld-jing-xiang" class="header-anchor">#</a></h1><ul>
+<li>阿里云镜像加速地址配置<br>登录<a href="https://www.aliyun.com/" target="_blank" rel="noopener">阿里云</a> – 控制台– 搜索”容器镜像服务”<br><img src="https://i.imgur.com/p4BSDr9.jpg" alt="docker-13.jpg"><br>选择第一个<br><img src="https://i.imgur.com/nirK7AU.jpg" alt="docker-14.jpg"><br>进入管理控制台<br><img src="https://i.imgur.com/9r3alNk.jpg" alt="docker-15.jpg"><br>根据不同系统，选择你的配置即可</li>
+<li>执行docker run hello-world命令<br><img src="https://i.imgur.com/xahn1yM.jpg" alt="docker-16.jpg"><br>执行过程理解<ul>
+<li>Unable to find image ‘hello-world:latest’ locally: 表示为找到hello-world:latest的镜像，</li>
+<li>Pulling from library/hello-world: 去配置好的阿里云仓库获取helloworld镜像，</li>
+<li>Pull complete: 下载镜像到本地，</li>
+<li>Hello from Docker!<br>This message shows that your installation appears to be working correctly.: 运行镜像的结果<br><img src="https://i.imgur.com/TYyGjR3.jpg" alt="docker-17.jpg"><br>docker helloword完成</li>
+</ul>
 </li>
+<li>docker 是如何工作的<ul>
+<li>docker是一个client-server结构的系统，docker守护进程运行在主机上，然后通过socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。容器，是一个运行时环境，就是docker logo上的集装箱<br><img src="https://i.imgur.com/QuXVUc6.jpg" alt="docker-18.jpg"></li>
+</ul>
+</li>
+<li>为什么docker比虚拟机快<br>看看虚拟机的架构图<br><img src="https://i.imgur.com/JouGxOd.jpg" alt="docker-19.jpg"><br>在看看docker架构图<br><img src="https://i.imgur.com/doCoHrf.jpg" alt="docker-20.jpg"><br>1.docker有着比虚拟机更少的抽象层。由于docker不需要Hypervisor实现硬件资源虚拟化，运行在docker容器上的程序直接使用的都是实际物理机上的硬件资源。因此在cpu，内存利用率上docker将会在效率上有明显优势<br>2.docker利用的是宿主机的内核，而不需要GuestOs。因此，当新建一个容器时，docker不需要和虚拟机一样重新加载操作系统内核。乃而避免引用，加载操作系统内核反而比较费时费资源，当新疆一个虚拟机时，虚拟机软件需要加载Guest Os，新建过程是分钟级别，而docker由于直接利用宿主机的操作系统，则省略了加载过程，因此新建一个docker容器只需要几秒钟<br>docker与虚拟机特点<br><img src="https://i.imgur.com/WV5TLte.jpg" alt="docker-21.jpg"></li>
 </ul>
 
 
@@ -294,12 +217,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API 并行流和串行流">&larr; Previous Post</a>
+                            <a href="/2018/07/22/docker-基础命令/" data-toggle="tooltip" data-placement="top" title="docker 基础命令">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/JDK8新特性-Stream API/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API">Next Post &rarr;</a>
+                            <a href="/2018/07/22/docker初识/" data-toggle="tooltip" data-placement="top" title="docker初识">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -326,9 +249,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#容器" title="容器">容器</a>
                         
                     </div>
                 </section>

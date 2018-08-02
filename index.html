@@ -184,16 +184,93 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Stream API/">
+    <a href="/2018/07/22/JDK8新特性-接口默认方法/">
         <h2 class="post-title">
-            JDK8新特性--Stream API
+            JDK8新特性--接口默认方法
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             
-JDK8新特新–Stream API Stream api   Java8中有两大最为重要的改变。第一个是Lambda 表达式；另外一个则是Stream API(java.util.stream.*)。  Stream 是Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用Stream API 对集合数据进行操作，就类似......
+JDK8新特新–接口默认方法接口默认方法   即接口中一个有方法的实现
+ public interface InterfaceDef {
+    //接口中通过default来修饰方式，可以有默认实现
+    default String getName() {
+        return &quot;xxxx&quot;;
+    }
+
+}
+
+接口默认方法的”类优先”原则若一个接口中定......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/Eureka Server/">
+        <h2 class="post-title">
+            Eureka Server
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            使用idea快速构建Eureka Server#   打开idea–file–New–Project      选中Spring initializr–next      然后构建自己的maven的group和artifact，   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka server即可      next–finish完成......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/Eureka Client使用/">
+        <h2 class="post-title">
+            Eureka Client使用与高可用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            使用idea快速构建Eureka Client#   打开idea–file–New–Project      选中Spring initializr–next      然后构建自己的maven的group和artifact，   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka discovery即可   next–finish完成......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-Lambda-2/">
+        <h2 class="post-title">
+            JDK8新特性--Lambda(2)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            JDK8新特新–Lambda(2) lambda基础语法#
+lambda表达式语法
+
+lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
+
+Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.len......
         </div>
     </a>
     <p class="post-meta">
@@ -236,53 +313,26 @@ input{
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-2/">
+    <a href="/2018/07/22/JDK8新特性-Lambda-3/">
         <h2 class="post-title">
-            JDK8新特性--Lambda(2)
+            JDK8新特性--Lambda(3)
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            JDK8新特新–Lambda(2) lambda基础语法#
-lambda表达式语法
+            JDK8新特性–Lambda(3) lambda应用#
+lambda表达式应用
 
 lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
 
-Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.len......
+//使用lambda对员工信息的各项比较
+ Collections.sort(emps, (e1, e2) -&gt; {
+    if(e1.getAge(......
         </div>
     </a>
     <p class="post-meta">
         Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-Lambda-1/">
-        <h2 class="post-title">
-            JDK8新特性--Lambda(1)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            JDK8新特新–Lambda(1) 初识lambda#
-什么是lambda表达式 
-
-lambda可以理解为一个匿名函数类,使代码更简洁使用lambda表达式前 
-
-//使用匿名内部类
-Comparator&lt;String&gt; com = new Comparator&lt;String&gt;(){
-    @Override
-    public int compare(Stri......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by 古朋 on
         2018-07-22
     </p>
 
@@ -305,34 +355,6 @@ JDK8新特新–OptionalOptional   出现optional类的目的是为了避免空�
 Optional&lt;Employee&gt; op = Optional.of(new Employee());
 Employee emp = op.get();
 System.out.println(e......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
-        <h2 class="post-title">
-            JDK8新特性--Lambda(4)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            #JDK8新特新–Lambda(4) lambda原生接口应用
-
-lambda表达式接口应用   分为四大原生接口
-    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接......
         </div>
     </a>
     <p class="post-meta">
@@ -395,50 +417,22 @@ JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-3/">
+    <a href="/2018/07/22/JDK8新特性-Lambda-4/">
         <h2 class="post-title">
-            JDK8新特性--Lambda(3)
+            JDK8新特性--Lambda(4)
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            JDK8新特性–Lambda(3) lambda应用#
-lambda表达式应用
+            #JDK8新特新–Lambda(4) lambda原生接口应用
 
-lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
-
-//使用lambda对员工信息的各项比较
- Collections.sort(emps, (e1, e2) -&gt; {
-    if(e1.getAge(......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-全新日期api/">
-        <h2 class="post-title">
-            JDK8新特性--全新日期api
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-JDK8新特新–全新日期api全新日期api  再java.time下，用于解决老日期api的线程安全问题
-
-LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象，分别表示使用ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。也不包含与时区相关的信息。
-
-  
-
-Instant 时间戳 用于“时间戳”......
+lambda表达式接口应用   分为四大原生接口
+    Consumer&lt;T&gt; : 消费型接口
+          void accept(T t);
+    Supplier&lt;T&gt; : 供给型接口
+          T get(); 
+    Function&lt;T, R&gt; : 函数型接......
         </div>
     </a>
     <p class="post-meta">
@@ -484,7 +478,11 @@ Instant 时间戳 用于“时间戳”......
                     <div class="tags">
                         
                             
+                            <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="2">Spring Cloud</a>
+                            
                         
+                            
+                            <a href="/tags/#Eureka" title="Eureka" rel="2">Eureka</a>
                             
                         
                             
@@ -493,6 +491,10 @@ Instant 时间戳 用于“时间戳”......
                         
                             
                             <a href="/tags/#Lambda" title="Lambda" rel="5">Lambda</a>
+                            
+                        
+                            
+                        
                             
                         
                             
@@ -506,19 +508,21 @@ Instant 时间戳 用于“时间戳”......
                             
                         
                             
-                            <a href="/tags/#docker" title="docker" rel="2">docker</a>
+                            <a href="/tags/#docker" title="docker" rel="4">docker</a>
                             
                         
                             
-                            <a href="/tags/#容器" title="容器" rel="2">容器</a>
+                            <a href="/tags/#容器" title="容器" rel="4">容器</a>
                             
                         
                             
-                            <a href="/tags/#并发编程" title="并发编程" rel="2">并发编程</a>
+                            <a href="/tags/#并发编程" title="并发编程" rel="3">并发编程</a>
                             
                         
                             
-                            <a href="/tags/#多线程" title="多线程" rel="2">多线程</a>
+                            <a href="/tags/#多线程" title="多线程" rel="3">多线程</a>
+                            
+                        
                             
                         
                     </div>

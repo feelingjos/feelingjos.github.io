@@ -13,11 +13,11 @@
 
     <title>
         
-          JDK8新特性--Lambda(4) - feelj | feelj&#39;s Blog
+          Eureka Client使用与高可用 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-4/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/Eureka Client使用/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,12 +165,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#Spring Cloud" title="Spring Cloud">Spring Cloud</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#Eureka" title="Eureka">Eureka</a>
                         
                     </div>
-                    <h1>JDK8新特性--Lambda(4)</h1>
+                    <h1>Eureka Client使用与高可用</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by feelj on
@@ -193,96 +193,46 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>#JDK8新特新–Lambda(4) lambda原生接口应用</p>
+                <h1><span id="shi-yong-idea-kuai-su-gou-jian-eureka-client">使用idea快速构建Eureka Client</span><a href="#shi-yong-idea-kuai-su-gou-jian-eureka-client" class="header-anchor">#</a></h1><p>   打开idea–file–New–Project<br>   <img src="https://i.imgur.com/b2sBndX.jpg" alt=""><br>   选中Spring initializr–next<br>   <img src="https://i.imgur.com/MIlbzQK.jpg" alt=""><br>   然后构建自己的maven的group和artifact，<br>   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka discovery即可<br>   next–finish完成<br>   <img src="https://i.imgur.com/12eGBsd.jpg" alt=""><br>   要注意的是client的版本与server的版本需统一，避免不必要的麻烦</p>
 <ul>
-<li><p><strong>lambda表达式接口应用</strong><br>   分为四大原生接口<br></p>
-<pre><code>    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接口
-            R apply(T t);
-    Predicate&lt;T&gt; : 断言型接口(判断操作)
-            boolean test(T t);
-
-消费型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test1(){
-      happy(10000, (m) -&gt; System.out.println(&quot;陪女朋友逛街，每次消费：&quot; + m + &quot;元&quot;));
-  } 
-  public void happy(double money, Consumer&lt;Double&gt; con){
-      con.accept(money);
-  }
-供给型接口
-
-   //Supplier&lt;T&gt; 供给型接口 :
-  @Test
-  public void test2(){
-      List&lt;Integer&gt; numList = getNumList(10, () -&gt; (int)(Math.random() * 100));
-
-      for (Integer num : numList) {
-          System.out.println(num);
-      }
-  }
-
-  //需求：产生指定个数的整数，并放入集合中
-  public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup){
-      List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-
-      for (int i = 0; i &lt; num; i++) {
-          Integer n = sup.get();
-          list.add(n);
-      }
-
-      return list;
-  }
-
-函数型接口
-
-  //Function&lt;T, R&gt; 函数型接口：
-  @Test
-  public void test3(){
-      String newStr = strHandler(&quot;\t\t\t 我大尚硅谷威武   &quot;, (str) -&gt; str.trim());
-      System.out.println(newStr);
-
-      String subStr = strHandler(&quot;我大尚硅谷威武&quot;, (str) -&gt; str.substring(2, 5));
-      System.out.println(subStr);
-  }
-
-  //需求：用于处理字符串
-  public String strHandler(String str, Function&lt;String, String&gt; fun){
-      return fun.apply(str);
-  }
-
-断言型接口
-
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test4(){
-      List&lt;String&gt; list = Arrays.asList(&quot;Hello&quot;, &quot;atguigu&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);
-      List&lt;String&gt; strList = filterStr(list, (s) -&gt; s.length() &gt; 3);
-
-      for (String str : strList) {
-          System.out.println(str);
-      }
-  }
-
-  //需求：将满足条件的字符串，放入集合中
-  public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre){
-      List&lt;String&gt; strList = new ArrayList&lt;&gt;();
-
-      for (String str : list) {
-          if(pre.test(str)){
-              strList.add(str);
-          }
-      }
-
-      return strList;
-  }
-</code></pre><p>   这四大接口是比较典型的应用接口，这样我们就不用每次使用都要自己来创建了，同样但业务需求无法满足的使用，我们就也可以自定义函数接口<br><br>   另外还有一些其他的子接口     </p>
-<p>   <img src="https://i.imgur.com/5nuxfQk.jpg" alt=""></p>
+<li><p>工程创建完成后再application.yml配置文件中添加Eureka Server的url地址配置就可以注册了</p>
+<p>   eureka:</p>
+<pre><code>client:
+  service-url:
+    defaultZone: http://localhost:8761/eureka/
+</code></pre></li>
+<li><p>在springboot启动类添加@EnableDiscoveryClient注解启动即可完成<br><br>采坑系列: 如果报错</p>
+<p>   Invocation of destroy method failed on bean with name ‘scopedTarget.eurekaClient’: org.springframework.beans.factory.BeanCreationNotAllowedException: Error creating bean with name ‘eurekaInstanceConfigBean’: Singleton bean creation not allowed while singletons of this factory are in destruction (Do not request a bean from a BeanFactory in a destroy method implementation!)</p>
+<p>这是指无法创建springbean依赖，需要在pom文件添加依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><p>这样就解决了</p>
+</li>
+<li><p>高可用实现<br><img src="https://i.imgur.com/OAsbT9A.jpg" alt="Eureka Server-高可用-1.jpg"><br>我们通过两eureka server互相注册服务</p>
+</li>
+<li><p>使用idea启动两个eureka server来演示效果<br><img src="https://i.imgur.com/sIJbGPW.jpg" alt="Eureka Server-高可用-2.jpg"></p>
+<p>复制启动依赖修改端口<br><img src="https://i.imgur.com/CROvThR.jpg" alt=""></p>
+<p>通过互相注册启动后eureka client注册到<a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a> 后我们会发现8762也启动有client内容<br><img src="https://i.imgur.com/MMmgF1A.jpg" alt="Eureka Server-高可用-4.jpg"><br>这是因为两个eureka server互相注册后会互相交易换信息</p>
+<p>在eureka client只注册一个server的情况下，当server 8761停止或宕机后会发生什么呢，我们来试试</p>
+<p>当我们停止server 8761后，client依然能注册到8762上，因此通过这种方式到达高可用效果,但当client重启后就无法注册了，因为无法通过8761端口注册，那当然我们也希望能注册到8762上，如何配置呢，只需要在application.yml配置</p>
+<p>   eureka:</p>
+<pre><code>client:
+  service-url:
+    defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+</code></pre><p>如此即可</p>
+</li>
+<li><p>eureka server 高可用原理理解<br><img src="https://i.imgur.com/TNWLwbz.jpg" alt="Eureka Server-高可用-5.jpg"></p>
+</li>
+<li><p>总结</p>
+<blockquote>
+<p>在springboot的基础上通过EnableEurekaServer,EnableEurekaClient 使用eureka server和eureka client 来实现<br>eureka 具有心跳检测，健康检查，负载均衡等功能<br>eureka的高可用，生产上建议至少两台以上<br>分布式系统中，服务注册中心是最重要的基础部分</p>
+<ul>
+<li>分布式系统中为什么会需要服务发现<br><img src="https://i.imgur.com/77VLjQj.jpg" alt="Eureka Server-高可用-6.jpg"></li>
+<li>服务发现的两种方式<br>1 客户端发现<br> eureka<br>2 服务端发现<br> nginx<br> zookeeper<br> kubernets(k8s)</li>
+</ul>
+</blockquote>
 </li>
 </ul>
 
@@ -294,12 +244,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API 并行流和串行流">&larr; Previous Post</a>
+                            <a href="/2018/07/22/Eureka Server/" data-toggle="tooltip" data-placement="top" title="Eureka Server">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/JDK8新特性-Stream API/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API">Next Post &rarr;</a>
+                            <a href="/2018/07/22/JDK8新特性-Lambda-2/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(2)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -326,9 +276,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#Spring Cloud" title="Spring Cloud">Spring Cloud</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#Eureka" title="Eureka">Eureka</a>
                         
                     </div>
                 </section>

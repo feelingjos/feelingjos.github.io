@@ -13,11 +13,11 @@
 
     <title>
         
-          JDK8新特性--Lambda(4) - feelj | feelj&#39;s Blog
+          线程安全 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/JDK8新特性-Lambda-4/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/线程安全/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,12 +165,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
                         
                     </div>
-                    <h1>JDK8新特性--Lambda(4)</h1>
+                    <h1>线程安全</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by feelj on
@@ -193,96 +193,188 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>#JDK8新特新–Lambda(4) lambda原生接口应用</p>
+                <h1><span id="dan-li-mo-shi-yu-xian-cheng-an-quan-xing-wen-ti">单例模式与线程安全性问题</span><a href="#dan-li-mo-shi-yu-xian-cheng-an-quan-xing-wen-ti" class="header-anchor">#</a></h1><ul>
+<li><p>饿汉模式</p>
+<pre><code>//私有化构造方法
+private Singleton() {}
+
+private static Singleton instance=new Singleton();
+
+public static Singleton getInstance() {
+    return instance;
+}
+
+//由于构造方法私有无法直接new来创建
+Singleton s1=Singleton.getInstance();
+Singleton s2=Singleton.getInstance();
+Singleton s3=Singleton.getInstance();
+Singleton s4=Singleton.getInstance();
+Singleton s5=Singleton.getInstance();
+
+System.out.println(s1);
+System.out.println(s2);
+System.out.println(s3);
+System.out.println(s4);
+System.out.println(s5);
+
+//运行结果我们会发现，对象的hash值是一样的
+</code></pre><p> 回忆一下上篇文章说到的什么条件下才会出现多线程安全问题呢</p>
 <ul>
-<li><p><strong>lambda表达式接口应用</strong><br>   分为四大原生接口<br></p>
-<pre><code>    Consumer&lt;T&gt; : 消费型接口
-          void accept(T t);
-    Supplier&lt;T&gt; : 供给型接口
-          T get(); 
-    Function&lt;T, R&gt; : 函数型接口
-            R apply(T t);
-    Predicate&lt;T&gt; : 断言型接口(判断操作)
-            boolean test(T t);
+<li>多线程环境下</li>
+<li>多个线程共享一个资源</li>
+<li><p>对资源进行读写(非原子性)操作</p>
+<p>于是我们发现，饿汉模式是不会有线程安全问题，下面我们来看看懒汉模式</p>
+</li>
+</ul>
+</li>
+<li><p>懒汉模式</p>
+<pre><code>//私有化构造方法
+private Singleton2() {}
 
-消费型接口
+private static Singleton2 instance;
 
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test1(){
-      happy(10000, (m) -&gt; System.out.println(&quot;陪女朋友逛街，每次消费：&quot; + m + &quot;元&quot;));
-  } 
-  public void happy(double money, Consumer&lt;Double&gt; con){
-      con.accept(money);
-  }
-供给型接口
+public static Singleton2 getInstance() {
+    if(instance==null) {
+        instance =new Singleton2();
+    }
+    return instance;
+}
 
-   //Supplier&lt;T&gt; 供给型接口 :
-  @Test
-  public void test2(){
-      List&lt;Integer&gt; numList = getNumList(10, () -&gt; (int)(Math.random() * 100));
+//测试调用
+Singleton2 s1=Singleton2.getInstance();
+Singleton2 s2=Singleton2.getInstance();
+Singleton2 s3=Singleton2.getInstance();
+Singleton2 s4=Singleton2.getInstance();
+Singleton2 s5=Singleton2.getInstance();
 
-      for (Integer num : numList) {
-          System.out.println(num);
-      }
-  }
+System.out.println(s1);
+System.out.println(s2);
+System.out.println(s3);
+System.out.println(s4);
+System.out.println(s5);
+//运行结果貌似对象的hash值是一样的，是不是说明懒汉模式也没有线程安全问题呢，
+</code></pre></li>
+</ul>
+<ul>
+<li><p>分析三个条件发现，他不满足对’资源进行读写(非原子性)操作’getInstance()方法并非原子性操作</p>
+<pre><code>ExecutorService threadPool = Executors.newFixedThreadPool(20);
 
-  //需求：产生指定个数的整数，并放入集合中
-  public List&lt;Integer&gt; getNumList(int num, Supplier&lt;Integer&gt; sup){
-      List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+for (int i=0;i&lt;20;i++) {
+    threadPool.execute(new Runnable() {
+        @Override
+        public void run() {
+            System.out.println(Thread.currentThread().getName()+&quot;;&quot;+Singleton2.getInstance());
+        }
+    });
+}
+//运行后发现，果然出问题了
+</code></pre></li>
+<li><p>那么如何解决呢，分析原因我们知道是原则性操作的问题，synchronized保证原子性即可解决了<br>那么synchronized是解决了，是不是意味着性能最佳呢，显然不是，<br>由于synchronized修饰的锁范围太大，可以使用双重检查锁来解决</p>
+<pre><code>public static synchronized Singleton2 getInstance() {
+       if(instance==null) {
+           synchronized (Singleton2.class) {
+               if(instance==null) {
+                   instance =new Singleton2();
+               }
+           }
+       }
+       return instance;
+   }
+</code></pre><ul>
+<li>饿汉与懒汉主要区别与单例的创建时间不同</li>
+<li><p>重入锁:重进入是指任意线程在获取到锁之后，再次获取该锁而不会被该锁所阻塞。关联一个线程持有者+计数器，重入意味着锁操作的颗粒度为“线程”。</p>
+<p>public synchronized void a(){</p>
+<pre><code>System.out.println(&quot;a&quot;);
+b();
+try {
+    Thread.sleep(1000);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+</code></pre><p> }</p>
+<p> public synchronized void b(){</p>
+<pre><code>System.out.println(&quot;b&quot;);
+try {
+    Thread.sleep(1000);
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+</code></pre><p> }</p>
+<p> public static void main(String[] args) {</p>
+<pre><code>Demo d1=new Demo();
+Demo d2=new Demo();
+new Thread(new Runnable() {
 
-      for (int i = 0; i &lt; num; i++) {
-          Integer n = sup.get();
-          list.add(n);
-      }
+    @Override
+    public void run() {
+        d1.a();
+    }
+}).start();
+new Thread(new Runnable() {
 
-      return list;
-  }
+    @Override
+    public void run() {
+        d2.b();
+    }
+}).start();
+</code></pre><p> }</p>
+</li>
+<li><p>自旋锁:是只不停旋cpu时间片，一直等待别的线程执行完毕</p>
+</li>
+<li><p>死锁：当一个线程只有一把锁，并且其他线程都尝试获取这把锁的时候就会出现死锁</p>
+<pre><code>private Object obj1=new Object();
+private Object obj2=new Object();
 
-函数型接口
+public void a(){
+    synchronized (obj1) {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        synchronized (obj2) {
+            System.out.println(&quot;a&quot;);
+        }
+    }
+}
 
-  //Function&lt;T, R&gt; 函数型接口：
-  @Test
-  public void test3(){
-      String newStr = strHandler(&quot;\t\t\t 我大尚硅谷威武   &quot;, (str) -&gt; str.trim());
-      System.out.println(newStr);
+public void b() {
+    synchronized (obj2) {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        synchronized (obj1) {
+            System.out.println(&quot;b&quot;);
+        }
+    }
+}
 
-      String subStr = strHandler(&quot;我大尚硅谷威武&quot;, (str) -&gt; str.substring(2, 5));
-      System.out.println(subStr);
-  }
+public static void main(String[] args) {
 
-  //需求：用于处理字符串
-  public String strHandler(String str, Function&lt;String, String&gt; fun){
-      return fun.apply(str);
-  }
+    Demo3 d=new Demo3();
 
-断言型接口
+    new Thread(new Runnable() {
 
-  //Predicate&lt;T&gt; 断言型接口：
-  @Test
-  public void test4(){
-      List&lt;String&gt; list = Arrays.asList(&quot;Hello&quot;, &quot;atguigu&quot;, &quot;Lambda&quot;, &quot;www&quot;, &quot;ok&quot;);
-      List&lt;String&gt; strList = filterStr(list, (s) -&gt; s.length() &gt; 3);
+        @Override
+        public void run() {
+            d.a();
+        }
+    }).start();
+    new Thread(new Runnable() {
 
-      for (String str : strList) {
-          System.out.println(str);
-      }
-  }
+        @Override
+        public void run() {
+            d.b();
 
-  //需求：将满足条件的字符串，放入集合中
-  public List&lt;String&gt; filterStr(List&lt;String&gt; list, Predicate&lt;String&gt; pre){
-      List&lt;String&gt; strList = new ArrayList&lt;&gt;();
-
-      for (String str : list) {
-          if(pre.test(str)){
-              strList.add(str);
-          }
-      }
-
-      return strList;
-  }
-</code></pre><p>   这四大接口是比较典型的应用接口，这样我们就不用每次使用都要自己来创建了，同样但业务需求无法满足的使用，我们就也可以自定义函数接口<br><br>   另外还有一些其他的子接口     </p>
-<p>   <img src="https://i.imgur.com/5nuxfQk.jpg" alt=""></p>
+        }
+    }).start();
+}
+</code></pre></li>
+</ul>
 </li>
 </ul>
 
@@ -294,13 +386,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API 并行流和串行流">&larr; Previous Post</a>
+                            <a href="/2018/07/22/并发编程/" data-toggle="tooltip" data-placement="top" title="并发编程  线程状态与线程多线程创建">&larr; Previous Post</a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2018/07/22/JDK8新特性-Stream API/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API">Next Post &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -326,9 +414,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
                         
-                          <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
                         
                     </div>
                 </section>
