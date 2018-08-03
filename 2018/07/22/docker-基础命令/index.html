@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -260,6 +260,14 @@
 <li>docker rm  [容器id]：删除已停止的容器 </li>
 <li>docker rm -f [容器id]：强制删除容器(运行的和没运行的)</li>
 <li>docker rm -f ${docker ps -a -q}:删除多个容器</li>
+<li>docker run -d  [容器名或id]: 启动容器后台运行</li>
+<li><p>docker logs -f -t -tail [容器id]:查看容器日志<br><img src="https://i.imgur.com/52wNV66.jpg" alt="docker-28.jpg"></p>
+<p><code>docker run -d centos /bin/sh -c &quot;while true; do echo hello zzyy;sleep 2; done&quot;</code></p>
+</li>
+<li>docker top [容器id]: 查看容器进程</li>
+<li>docker inspect [容器id]: 查看容器内部细节</li>
+<li>docker attach [容器id]:退出容器后重新进入</li>
+<li>docker exec -it [容器id] bashshell<br><img src="https://i.imgur.com/H3Pp6pA.jpg" alt="docker-29.jpg"></li>
 </ul>
 </li>
 </ul>
@@ -272,12 +280,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/JDK8新特性-注解增强/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--注解增强">&larr; Previous Post</a>
+                            <a href="/2018/07/22/docker-helloworld/" data-toggle="tooltip" data-placement="top" title="docker-helloworld">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/docker-helloworld/" data-toggle="tooltip" data-placement="top" title="docker-helloworld">Next Post &rarr;</a>
+                            <a href="/2018/07/22/Spring Cloud  RestTemplate/" data-toggle="tooltip" data-placement="top" title="Spring Cloud RestTemplate 使用">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

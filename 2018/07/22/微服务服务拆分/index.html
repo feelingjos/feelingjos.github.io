@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -257,6 +257,11 @@
 <li>无状态服务(一个数据需要被多个服务共享才能完成一个请求，那么这个数据被称为状态，定而被依赖这个状态的服务被称为有状态服务，反之为无状态)<br><img src="https://i.imgur.com/egt8jfY.jpg" alt="微服务杂谈-3.jpg"></li>
 </ul>
 </li>
+<li>应用间通信<br>http  vs  PRC<br>世面上这些类型的框架有很多，具有代表性<ul>
+<li><a href="http://dubbo.apache.org/" target="_blank" rel="noopener">Dubbo</a><br> 阿里巴巴开源的框架，其本身的定位就是一个RPC协议的框架，基于dubbo开发的系统也还是要依赖其他技术生态，相比其他RPC框架呢，dubbo在服务治理上比较完善，不仅提供了服务注册发现，负载均衡，路由，以及分布式集群基础能力，也有服务治理的监控可视化平台</li>
+<li><a href="http://projects.spring.io/spring-cloud/" target="_blank" rel="noopener">Spring cloud</a><br> spring cloud励志于成为微服务架构下一站式解决方案，github上更新迭代很快,服务间通信是http，restful方式，协议轻量，容易跨语言，跨平台。</li>
+</ul>
+</li>
 </ul>
 
 
@@ -267,12 +272,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/synchronized原理/" data-toggle="tooltip" data-placement="top" title="并发编程  synchronized">&larr; Previous Post</a>
+                            <a href="/2018/07/22/并发编程/" data-toggle="tooltip" data-placement="top" title="并发编程  线程状态与线程多线程创建">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/并发编程/" data-toggle="tooltip" data-placement="top" title="并发编程  线程状态与线程多线程创建">Next Post &rarr;</a>
+                            <a href="/2018/07/22/线程安全/" data-toggle="tooltip" data-placement="top" title="线程安全">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -170,7 +170,11 @@
             <!-- 标签云 -->
             <div id='tag_cloud' class="tags">
                 
-                    <a href="#Spring Cloud" title="Spring Cloud" rel="2">Spring Cloud</a>
+                    <a href="#elasticsearch" title="elasticsearch" rel="1">elasticsearch</a>
+                
+                    <a href="#ELK" title="ELK" rel="1">ELK</a>
+                
+                    <a href="#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
                 
                     <a href="#Eureka" title="Eureka" rel="2">Eureka</a>
                 
@@ -178,13 +182,9 @@
                 
                     <a href="#Lambda" title="Lambda" rel="5">Lambda</a>
                 
-                    <a href="#elasticsearch" title="elasticsearch" rel="1">elasticsearch</a>
-                
-                    <a href="#ELK" title="ELK" rel="1">ELK</a>
+                    <a href="#Stream API" title="Stream API" rel="2">Stream API</a>
                 
                     <a href="#Optional" title="Optional" rel="3">Optional</a>
-                
-                    <a href="#Stream API" title="Stream API" rel="2">Stream API</a>
                 
                     <a href="#新特新" title="新特新" rel="1">新特新</a>
                 
@@ -192,16 +192,60 @@
                 
                     <a href="#容器" title="容器" rel="4">容器</a>
                 
-                    <a href="#并发编程" title="并发编程" rel="3">并发编程</a>
+                    <a href="#微服务" title="微服务" rel="2">微服务</a>
                 
-                    <a href="#多线程" title="多线程" rel="3">多线程</a>
+                    <a href="#并发编程" title="并发编程" rel="4">并发编程</a>
                 
-                    <a href="#微服务" title="微服务" rel="1">微服务</a>
+                    <a href="#多线程" title="多线程" rel="4">多线程</a>
                 
             </div>
 
             <!-- 标签列表 -->
 
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="elasticsearch">
+                    <span class="tag-text">elasticsearch</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/ELK日志分析平台搭建/">
+                        <h2 class="post-title">
+                            ELK日志分析平台
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="ELK">
+                    <span class="tag-text">ELK</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/ELK日志分析平台搭建/">
+                        <h2 class="post-title">
+                            ELK日志分析平台
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
             
             <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Spring Cloud">
@@ -231,6 +275,21 @@
                      <a href="/2018/07/22/Eureka Client使用/">
                         <h2 class="post-title">
                             Eureka Client使用与高可用
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/Spring Cloud  RestTemplate/">
+                        <h2 class="post-title">
+                            Spring Cloud RestTemplate 使用
                         </h2>
                         
                     </a>
@@ -302,21 +361,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Lambda-2/">
-                        <h2 class="post-title">
-                            JDK8新特性--Lambda(2)
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
                      <a href="/2018/07/22/JDK8新特性-Lambda-3/">
                         <h2 class="post-title">
                             JDK8新特性--Lambda(3)
@@ -332,9 +376,24 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Optional容器类/">
+                     <a href="/2018/07/22/JDK8新特性-Lambda-2/">
                         <h2 class="post-title">
-                            JDK8新特性--Optional使用
+                            JDK8新特性--Lambda(2)
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+                        <h2 class="post-title">
+                            JDK8新特性--Lambda(4)
                         </h2>
                         
                     </a>
@@ -377,9 +436,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Lambda-4/">
+                     <a href="/2018/07/22/JDK8新特性-Optional容器类/">
                         <h2 class="post-title">
-                            JDK8新特性--Lambda(4)
+                            JDK8新特性--Optional使用
                         </h2>
                         
                     </a>
@@ -392,9 +451,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Stream API/">
+                     <a href="/2018/07/22/JDK8新特性-全新日期api/">
                         <h2 class="post-title">
-                            JDK8新特性--Stream API
+                            JDK8新特性--全新日期api
                         </h2>
                         
                     </a>
@@ -422,9 +481,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-全新日期api/">
+                     <a href="/2018/07/22/JDK8新特性-Stream API/">
                         <h2 class="post-title">
-                            JDK8新特性--全新日期api
+                            JDK8新特性--Stream API
                         </h2>
                         
                     </a>
@@ -474,21 +533,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Lambda-2/">
-                        <h2 class="post-title">
-                            JDK8新特性--Lambda(2)
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
                      <a href="/2018/07/22/JDK8新特性-Lambda-3/">
                         <h2 class="post-title">
                             JDK8新特性--Lambda(3)
@@ -504,9 +548,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Lambda-5/">
+                     <a href="/2018/07/22/JDK8新特性-Lambda-2/">
                         <h2 class="post-title">
-                            JDK8新特性--Lambda(5)
+                            JDK8新特性--Lambda(2)
                         </h2>
                         
                     </a>
@@ -529,95 +573,14 @@
                 </div>
                 <hr>
                 
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="elasticsearch">
-                    <span class="tag-text">elasticsearch</span>
-                </span>
-                
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/ELK日志分析平台搭建/">
+                     <a href="/2018/07/22/JDK8新特性-Lambda-5/">
                         <h2 class="post-title">
-                            ELK日志分析平台
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="ELK">
-                    <span class="tag-text">ELK</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/07/22/ELK日志分析平台搭建/">
-                        <h2 class="post-title">
-                            ELK日志分析平台
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Optional">
-                    <span class="tag-text">Optional</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-Optional容器类/">
-                        <h2 class="post-title">
-                            JDK8新特性--Optional使用
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-接口默认方法/">
-                        <h2 class="post-title">
-                            JDK8新特性--接口默认方法
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/07/22/JDK8新特性-全新日期api/">
-                        <h2 class="post-title">
-                            JDK8新特性--全新日期api
+                            JDK8新特性--Lambda(5)
                         </h2>
                         
                     </a>
@@ -665,6 +628,58 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Optional">
+                    <span class="tag-text">Optional</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/JDK8新特性-Optional容器类/">
+                        <h2 class="post-title">
+                            JDK8新特性--Optional使用
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/JDK8新特性-全新日期api/">
+                        <h2 class="post-title">
+                            JDK8新特性--全新日期api
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/JDK8新特性-接口默认方法/">
+                        <h2 class="post-title">
+                            JDK8新特性--接口默认方法
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="新特新">
                     <span class="tag-text">新特新</span>
                 </span>
@@ -696,9 +711,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/docker-基础命令/">
+                     <a href="/2018/07/22/docker-helloworld/">
                         <h2 class="post-title">
-                            docker 基础命令
+                            docker-helloworld
                         </h2>
                         
                     </a>
@@ -711,9 +726,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/docker-helloworld/">
+                     <a href="/2018/07/22/docker-基础命令/">
                         <h2 class="post-title">
-                            docker-helloworld
+                            docker 基础命令
                         </h2>
                         
                     </a>
@@ -763,9 +778,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/docker-基础命令/">
+                     <a href="/2018/07/22/docker-helloworld/">
                         <h2 class="post-title">
-                            docker 基础命令
+                            docker-helloworld
                         </h2>
                         
                     </a>
@@ -778,9 +793,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2018/07/22/docker-helloworld/">
+                     <a href="/2018/07/22/docker-基础命令/">
                         <h2 class="post-title">
-                            docker-helloworld
+                            docker 基础命令
                         </h2>
                         
                     </a>
@@ -821,9 +836,61 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="微服务">
+                    <span class="tag-text">微服务</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/Spring Cloud  RestTemplate/">
+                        <h2 class="post-title">
+                            Spring Cloud RestTemplate 使用
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/微服务服务拆分/">
+                        <h2 class="post-title">
+                            微服务服务拆分杂谈
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="并发编程">
                     <span class="tag-text">并发编程</span>
                 </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2018/07/22/volatile/">
+                        <h2 class="post-title">
+                            volatile
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -882,6 +949,21 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
+                     <a href="/2018/07/22/volatile/">
+                        <h2 class="post-title">
+                            volatile
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
                      <a href="/2018/07/22/synchronized原理/">
                         <h2 class="post-title">
                             并发编程  synchronized
@@ -915,28 +997,6 @@
                      <a href="/2018/07/22/线程安全/">
                         <h2 class="post-title">
                             线程安全
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="微服务">
-                    <span class="tag-text">微服务</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2018/07/22/微服务服务拆分/">
-                        <h2 class="post-title">
-                            微服务服务拆分杂谈
                         </h2>
                         
                     </a>
