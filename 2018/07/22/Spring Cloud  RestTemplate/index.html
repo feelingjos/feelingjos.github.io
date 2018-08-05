@@ -13,11 +13,11 @@
 
     <title>
         
-          feelj | feelj&#39;s Blog
+          Spring Cloud RestTemplate 使用 - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/i_dont_wanna_use_default_archives/page/3/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/Spring Cloud  RestTemplate/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,232 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Spring Cloud" title="Spring Cloud">Spring Cloud</a>
+                        
+                          <a class="tag" href="/tags/#微服务" title="微服务">微服务</a>
+                        
+                    </div>
+                    <h1>Spring Cloud RestTemplate 使用</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="spring-cloud-sheng-tai-zhong-resttemplate-shi-yong">Spring Cloud生态中 RestTemplate使用</span><a href="#spring-cloud-sheng-tai-zhong-resttemplate-shi-yong" class="header-anchor">#</a></h1><ul>
+<li><p>应用通信</p>
+<ul>
+<li><p>RestTemplate使用方式</p>
+<ul>
+<li><p>第一种方式 </p>
+<pre><code>//服务提供这提供服务接口
+@RestController
+public class ServerController {
+    @GetMapping(&quot;/msg&quot;)
+    public String msg() {
+        return &quot;this is product&apos; msg&quot;;
+    }
+}
+//访问地址:http://localhost:8080/msg
+//调用方
+@GetMapping(&quot;/getProductMsg&quot;)
+public String getProductMsg(){
+    RestTemplate restTemplate=new RestTemplate();
+    String response=restTemplate.getForObject(&quot;http://localhost:8080/msg&quot;,String.class);
+}
+</code></pre><p> 缺点，地址固定，多服务间不灵活开发调用</p>
+</li>
+</ul>
+<ul>
+<li><p>第二种方式</p>
+<pre><code>//注入LoadBalancerClient
+@Autowired
+private LoadBalancerClient loadBalancerClient;
+
+//通过LoadBalancerClient根据服务名获取服务信息，构建url调用
+RestTemplate restTemplate=new RestTemplate();
+ServiceInstance serviceInstance =loadBalancerClient.choose(&quot;PRODUCT&quot;);
+String url= String.format(&quot;http://%s:%s&quot;,serviceInstance.getHost(),serviceInstance.getPort());
+restTemplate.getForObject(url,String.class);
+</code></pre></li>
+<li><p>第三种方式</p>
+<pre><code>//注解配置bean
+@Component
+public class RestTemplateConfig {
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+}
+
+RestTemplate restTemplate=new RestTemplate()
+restTemplate.getForObject(&quot;http://服务名称/msg&quot;,String.class);
+</code></pre></li>
+<li><p>客户端负载均衡器：Ribbon </p>
+<ul>
+<li>服务发现</li>
+<li>服务选择规则</li>
+<li>服务监听<ul>
+<li>serverlist</li>
+<li>irule</li>
+<li>serverlistfiler</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Feign </p>
+<ul>
+<li>一个REST客户端(为RPC)</li>
+<li>采用了基于接口的注解</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/docker初识/" data-toggle="tooltip" data-placement="top" title="docker初识">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/docker-容器数据卷/" data-toggle="tooltip" data-placement="top" title="docker 容器数据卷">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Spring Cloud" title="Spring Cloud">Spring Cloud</a>
+                        
+                          <a class="tag" href="/tags/#微服务" title="微服务">微服务</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->

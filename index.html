@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -184,16 +184,21 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Stream API/">
+    <a href="/2018/07/22/JDK8新特性-注解增强/">
         <h2 class="post-title">
-            JDK8新特性--Stream API
+            JDK8新特性--注解增强
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             
-JDK8新特新–Stream API Stream api   Java8中有两大最为重要的改变。第一个是Lambda 表达式；另外一个则是Stream API(java.util.stream.*)。  Stream 是Java8 中处理集合的关键抽象概念，它可以指定你希望对集合进行的操作，可以执行非常复杂的查找、过滤和映射数据等操作。使用Stream API 对集合数据进行操作，就类似......
+JDK8新特新–注解增强重复注解类型注解  重复注解的注解需用@Repeatable(容器类.class)来修饰
+
+@Repeatable(MyAnnotions.class)
+@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+@Retention(RetentionPolicy.RUNTIME)
+......
         </div>
     </a>
     <p class="post-meta">
@@ -236,63 +241,6 @@ input{
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Lambda-1/">
-        <h2 class="post-title">
-            JDK8新特性--Lambda(1)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            JDK8新特新–Lambda(1) 初识lambda#
-什么是lambda表达式 
-
-lambda可以理解为一个匿名函数类,使代码更简洁使用lambda表达式前 
-
-//使用匿名内部类
-Comparator&lt;String&gt; com = new Comparator&lt;String&gt;(){
-    @Override
-    public int compare(Stri......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by 古朋 on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/JDK8新特性-Lambda-3/">
-        <h2 class="post-title">
-            JDK8新特性--Lambda(3)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            JDK8新特性–Lambda(3) lambda应用#
-lambda表达式应用
-
-lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
-
-//使用lambda对员工信息的各项比较
- Collections.sort(emps, (e1, e2) -&gt; {
-    if(e1.getAge(......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2018/07/22/JDK8新特性-Lambda-2/">
         <h2 class="post-title">
             JDK8新特性--Lambda(2)
@@ -307,6 +255,48 @@ lambda表达式语法
 lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
 
 Comparator&lt;String&gt; com = (x, y) -&gt; Integer.compare(x.length(), y.len......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/Eureka Client使用/">
+        <h2 class="post-title">
+            Eureka Client使用与高可用
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            使用idea快速构建Eureka Client#   打开idea–file–New–Project      选中Spring initializr–next      然后构建自己的maven的group和artifact，   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka discovery即可   next–finish完成......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/Eureka Server/">
+        <h2 class="post-title">
+            Eureka Server
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            使用idea快速构建Eureka Server#   打开idea–file–New–Project      选中Spring initializr–next      然后构建自己的maven的group和artifact，   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka server即可      next–finish完成......
         </div>
     </a>
     <p class="post-meta">
@@ -347,27 +337,6 @@ lambda表达式接口应用   分为四大原生接口
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/Eureka Client使用/">
-        <h2 class="post-title">
-            Eureka Client使用与高可用
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            使用idea快速构建Eureka Client#   打开idea–file–New–Project      选中Spring initializr–next      然后构建自己的maven的group和artifact，   next–选择自己的springboot版本和依赖，这里选cloud discovery –Eureka discovery即可   next–finish完成......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2018/07/22/JDK8新特性-Lambda-5/">
         <h2 class="post-title">
             JDK8新特性--Lambda(5)
@@ -396,16 +365,22 @@ JDK8新特新–Lambda(5) 方法引用与构造器引用lambda表达式接口应
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/">
+    <a href="/2018/07/22/JDK8新特性-Lambda-3/">
         <h2 class="post-title">
-            JDK8新特性--Stream API 并行流和串行流
+            JDK8新特性--Lambda(3)
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            
-JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流   并行流就是把一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流。Java 8 中将并行进行了优化，我们可以很容易的对数据进行并行操作。Stream API 可以声明性地通过parallel() 与sequential() 在并行流与顺序流之间进行切换。了解并行流前我们可以了解一下Fork......
+            JDK8新特性–Lambda(3) lambda应用#
+lambda表达式应用
+
+lambda实现语法 ‘-&gt;’该操作符称为箭头操作符或 Lambda 操作符  箭头操作符将 Lambda 表达式拆分成两部分  看下面这段代码
+
+//使用lambda对员工信息的各项比较
+ Collections.sort(emps, (e1, e2) -&gt; {
+    if(e1.getAge(......
         </div>
     </a>
     <p class="post-meta">
@@ -432,6 +407,28 @@ JDK8新特新–OptionalOptional   出现optional类的目的是为了避免空�
 Optional&lt;Employee&gt; op = Optional.of(new Employee());
 Employee emp = op.get();
 System.out.println(e......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/JDK8新特性-Stream API - 并行流和串行流/">
+        <h2 class="post-title">
+            JDK8新特性--Stream API 并行流和串行流
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+JDK8新特新–Stream API 并行流与串行流Stream api 并行流与串行流   并行流就是把一个内容分成多个数据块，并用不同的线程分别处理每个数据块的流。Java 8 中将并行进行了优化，我们可以很容易的对数据进行并行操作。Stream API 可以声明性地通过parallel() 与sequential() 在并行流与顺序流之间进行切换。了解并行流前我们可以了解一下Fork......
         </div>
     </a>
     <p class="post-meta">
@@ -481,14 +478,6 @@ System.out.println(e......
                             
                         
                             
-                            <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
-                            
-                        
-                            
-                            <a href="/tags/#Eureka" title="Eureka" rel="2">Eureka</a>
-                            
-                        
-                            
                             <a href="/tags/#java8" title="java8" rel="11">java8</a>
                             
                         
@@ -497,7 +486,11 @@ System.out.println(e......
                             
                         
                             
-                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
+                            <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
+                            
+                        
+                            
+                            <a href="/tags/#Eureka" title="Eureka" rel="2">Eureka</a>
                             
                         
                             
@@ -505,13 +498,21 @@ System.out.println(e......
                             
                         
                             
-                        
-                            
-                            <a href="/tags/#docker" title="docker" rel="4">docker</a>
+                            <a href="/tags/#Stream API" title="Stream API" rel="2">Stream API</a>
                             
                         
                             
-                            <a href="/tags/#容器" title="容器" rel="4">容器</a>
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#docker" title="docker" rel="6">docker</a>
+                            
+                        
+                            
+                            <a href="/tags/#容器" title="容器" rel="6">容器</a>
                             
                         
                             

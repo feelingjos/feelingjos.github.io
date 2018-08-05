@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -267,7 +267,15 @@
 <li>docker top [容器id]: 查看容器进程</li>
 <li>docker inspect [容器id]: 查看容器内部细节</li>
 <li>docker attach [容器id]:退出容器后重新进入</li>
-<li>docker exec -it [容器id] bashshell<br><img src="https://i.imgur.com/H3Pp6pA.jpg" alt="docker-29.jpg"></li>
+<li><p>docker exec -it [容器id] bashshell<br><img src="https://i.imgur.com/H3Pp6pA.jpg" alt="docker-29.jpg"></p>
+</li>
+<li><p>docker commit 提交容器副本使之成为一个新的镜像,比如:<br>我们pull一个tomcat下来，并运行起来，那么这个tomcat是不是一个本地的容器副本，docker commit可以把这个运行的容器副本变成一个全新镜像</p>
+</li>
+<li><p>docker commit -m=”提交的描述信息” -a=”作者” 容器id 要创建的目标镜像名:[标签名]<br>做个例子<br>   <code>docker run -it -p 8888:8080 tomcat</code><br>   -p ：主机端口：docker容器端<br>   -P ：随机分配端口<br>   i ：交互<br>   t ：终端<br>   <img src="https://i.imgur.com/hqveqMR.jpg" alt="docker-34.jpg"><br>   查看日志启动后，就可以通过端口访问了<br> <img src="https://i.imgur.com/QuxiD8a.jpg" alt="docker-35.jpg"><br> 然后进入docker tomcat<br>  <img src="https://i.imgur.com/wNQwj4J.jpg" alt="docker-36.jpg"><br>   在tomcat下删除一个doc文件，<br>   <img src="https://i.imgur.com/ZQldJFM.jpg" alt="docker-37.jpg"><br>   <img src="https://i.imgur.com/HULUnhU.jpg" alt="docker-38.jpg"><br>  也就是说当前容器实例是没有tomcat文档的实例<br>  以这个容器为模板commit一个没有doc的tomat新镜像<br>  myfeelj/tomcat<br> <code>docker commit -a=&quot;feelj&quot; -m=&quot;tomcat without docs&quot; [容器id] myfeelj/tomcat:1.1</code><br><img src="https://i.imgur.com/mTsjq1l.jpg" alt="docker-39.jpg"><br>打包完成<br><img src="https://i.imgur.com/XONVsC1.jpg" alt="docker-40.jpg"><br>当我们再次运行这我们自定义的tomcat时便也不会有doc了<br><img src="https://i.imgur.com/5eFtvq9.jpg" alt="docker-41.jpg"></p>
+<ul>
+<li>docker cp [容器id]:[容器内路径] 目标主主机路径 ：从容器内拷贝文件到主机上</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -280,12 +288,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/docker-helloworld/" data-toggle="tooltip" data-placement="top" title="docker-helloworld">&larr; Previous Post</a>
+                            <a href="/2018/07/22/JDK8新特性-Lambda-1/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Lambda(1)">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/Spring Cloud  RestTemplate/" data-toggle="tooltip" data-placement="top" title="Spring Cloud RestTemplate 使用">Next Post &rarr;</a>
+                            <a href="/2018/07/22/JDK8新特性-Stream API/" data-toggle="tooltip" data-placement="top" title="JDK8新特性--Stream API">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

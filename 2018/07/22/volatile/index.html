@@ -13,11 +13,11 @@
 
     <title>
         
-          feelj | feelj&#39;s Blog
+          volatile - feelj | feelj&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.feeljblog.com/i_dont_wanna_use_default_archives/page/3/">
+    <link rel="canonical" href="http://www.feeljblog.com/2018/07/22/volatile/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,231 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                    <h1>volatile</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-07-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="volatile-guan-jian-zi">volatile关键字</span><a href="#volatile-guan-jian-zi" class="header-anchor">#</a></h1><p>   volatile被称之为轻量级锁，被volatile修饰的变量，在线程之间是可见的，<br>   可见：一个线程修改了这个变量的值，在另一个线程中能能够读到这个修改后的值<br>   synchronized除了线程之间互斥以外，还有一个非常大的作用，就是保证可见性</p>
+<pre><code>public volatile boolean run=false;
+
+  public static void main(String[] args) {
+
+      Demo2 demo2=new Demo2();
+
+      new Thread(new Runnable() {
+          @Override
+          public void run() {
+              for (int i=0; i&lt;10;i++) {
+                  System.out.println(&quot;执行了第&quot;+i+&quot; 次&quot;);
+                  try {
+                      Thread.sleep(1000);
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
+              demo2.run=true;
+          }
+      }).start();
+
+      new Thread(new Runnable() {
+          @Override
+          public void run() {
+              while (!demo2.run) {
+
+              }
+              System.out.println(&quot;线程二执行&quot;);
+          }
+      }).start();
+
+  }
+</code></pre><p>   保证可见性的前提是<br>   多个线程拿到的是同一把锁</p>
+<ul>
+<li><p>volatile底层原理：volatile修饰后jvm运行会多一个lock指令</p>
+<ul>
+<li>在多处理器的系统上<ul>
+<li>将当前处理器缓存行的内容写会到系统</li>
+<li>写会到内存的操作会使在其他cup里缓存了该内存地址的数据失效</li>
+</ul>
+</li>
+<li>硬盘 – 内存 –cpu的缓存</li>
+</ul>
+</li>
+<li><p>synchronized与volatile对比</p>
+<ul>
+<li>volatile<ul>
+<li>保证数据可见性</li>
+<li>不能保证原子性</li>
+<li>轻量化，性能较synchronized高</li>
+<li>在数据没有非原子性操作的时候优选，有非原子性时没有意义</li>
+</ul>
+</li>
+<li>synchronized<ul>
+<li>保证原子性操作</li>
+<li>可完全替代volatile</li>
+<li>cpu上下文切换的时候耗性能，所以synchronized相对是总量级锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>jdk原子类(java.util.concurrent)弥补volatil缺点<ul>
+<li>原子更新基本类型<br> Atomic<em>，</em>代表类型，基本类型，integer，boolean等<br> 使用原子性类，后不存在非原子性线程安全问题</li>
+<li>原子更新数组<br> AtomicIntegerArray</li>
+<li>原子更新抽象类型<br> AtomicReference </li>
+<li>原子更新字段<br> AtomicIntegerFieldUpdater<br>原子类的底层原理是基于unsafe类，</li>
+</ul>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/07/22/synchronized原理/" data-toggle="tooltip" data-placement="top" title="并发编程  synchronized">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/22/微服务服务拆分/" data-toggle="tooltip" data-placement="top" title="微服务服务拆分杂谈">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
 
     <!-- Footer -->
     <!-- Footer -->
