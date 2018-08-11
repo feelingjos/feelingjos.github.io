@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -184,6 +184,34 @@
 
 <div class="post-preview">
 
+    <a href="/2018/07/22/docker-基础命令/">
+        <h2 class="post-title">
+            docker 基础命令
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            docker常用命令#
+帮助命令 docker –help
+docker 信息查看 docker version docker info
+查看本地镜像 docker images [参数]
+docker images -a：列出本地所有镜像(含中间映像层)
+docker images -q: 只显示镜像id
+docker images –digests: 显示镜像的摘要信息
+docker i......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/07/22/docker-容器数据卷/">
         <h2 class="post-title">
             docker 容器数据卷
@@ -194,6 +222,29 @@
         <div class="post-content-preview">
             docker容器数据卷#
 容器数据卷是什么docker理念:  1.将运用于运行的环境打包形成容器运行，运行可以伴随容器，是我们对数据的要求希望是持久化的。  2.容器之间希望有共享数据docker容器产生的数据，如果不通过docker commit生成新的镜像，使得数据作为镜像的一部分保存下来，那么当容器删除后，数据自然也就没有了  为了能保存数据在docker中我们使用的卷  类似于re......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/docker初识/">
+        <h2 class="post-title">
+            docker初识
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            docker是什么#   首先我们来提出一个问题，为什么会有docker出现
+
+要解答这个问题，首先看看我们的工作场景一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作的我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种 版本的迭代之后，不同版本环境的兼容，对运维人员都是考验docker的出现就提供了一个标准化的解决方案,环境配置如此麻......
         </div>
     </a>
     <p class="post-meta">
@@ -227,21 +278,18 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/并发编程/">
+    <a href="/2018/07/22/docker-镜像原理/">
         <h2 class="post-title">
-            并发编程  线程状态与线程多线程创建
+            docker 镜像原理
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            线程状态#    通过图中我们可以知道,线程分为六个状态(也叫生命周期)
+            docker镜像原理#
+docker镜像是什么
 
-初始(NEW): 线程实例被创建，还未启动(未执行start())
-运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态
-阻塞(BLOCKED):阻塞状态
-等待(WAITING):该状态下，线程需要等待其他线程的通知
-超时等待(TIME_WAITING): 与等待不同的是，它可......
+镜像是一个轻量级，可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码，运行时，库环境变量和配置文件,又叫联合文件系统(UnionFS)什么是联合文件系统:union文件系统(UnionFS)是一种分层，轻量级并且高新能的文件系统，它支持对文件系统的修改作为一次提交来一层层叠加，同时可以......
         </div>
     </a>
     <p class="post-meta">
@@ -254,28 +302,27 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/synchronized原理/">
+    <a href="/2018/07/22/mysql优化技巧之explain/">
         <h2 class="post-title">
-            并发编程  synchronized
+            mysql优化 explain
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            synchronized原理与使用#
-原理
-内置锁:被synchronized修饰的代码，会有一个内置锁
-互斥锁:一个线程再执行，另一个线程就不能进入了
+            explain是什么#
+explain又叫执行计划
+使用EXPAIN关键字可以模拟mysql优化器执行sql语句，从而知道mysql是如何处理sql语句的，分析sql语句或表结构的性能瓶颈，官网介绍
 
 
-使用
-修饰静态方法
-修饰普通方法
-修饰代码块
-
-
-
-...
+如何使用explain SELECT 列名称 FROM 表名称
+有什么作用
+查看读取表的信息
+数据读取操作的操作类型
+那些索引可以使用
+那些索引被实际使用
+表之间的应用
+每张表多少行被优化器......
         </div>
     </a>
     <p class="post-meta">
@@ -312,27 +359,22 @@ public volatile boolean run=false;
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/微服务服务拆分/">
+    <a href="/2018/07/22/并发编程 - AbstractQueuedSynchronizer/">
         <h2 class="post-title">
-            微服务服务拆分杂谈
+            并发编程  AbstractQueuedSynchronizer
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            如何拆分#
-找到起点和终点
-
-起点:要明白一个项目的起点，首先要搞清楚情况，是一个原有项目重构成一个微服务，或者开启新项目是的技术架构选型方案是使用微服务，即现有架构的形态
-终点:
-
-一个好的架构不是设计出来的，而是进价而来的，
-一直在演进引用dubbo框架的原图
+            AbstractQueuedSynchronizer(AQS)详解#
+是什么
+为实现依赖于先进先出 (FIFO) 等待队列的阻塞锁和相关同步器（信号量、事件，等等）提供一个框架
 
 
+公平锁  公平锁是针对锁的获取而言的，如果一个锁是公平的，那么锁的获取顺序就应该符合请求的绝对时间顺序
 
-传统互联网相比国外的技术要慢一些，相信都在图中所描述的路上，所以我们要明白我们的起点是重那个点上来定位
-您的系统适合上微服......
+...
         </div>
     </a>
     <p class="post-meta">
@@ -345,27 +387,52 @@ public volatile boolean run=false;
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/线程安全/">
+    <a href="/2018/07/22/并发编程 - lock/">
         <h2 class="post-title">
-            线程安全
+            并发编程 Lock
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            单例模式与线程安全性问题#
-饿汉模式
-//私有化构造方法
-private Singleton() {}
+            Lock接口的认识与使用#
+Lock是一个解决多线程的线程安全的一种方案，z之前我们了解到解决多线安全的方案还有 synchronized volatile atomoic*
 
-private static Singleton instance=new Singleton();
+lock需要显示获取和释放锁，繁锁
+synchronized不需要显示获取和释放锁，简单
+使用lock可以方便的实现公平性
+非阻塞的获取锁
+能被中断的获取锁
+超时获取锁
 
-public static Singleton getInstance() {
-    return instance;
-}
 
-//由于构造方法私有无法直接new来创建
-Singlet......
+实现一个自定义lock
+//实现lock接......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-07-22
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/07/22/服务docker化/">
+        <h2 class="post-title">
+            微服务docker化
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            将开发好的微服务放入docker容器中运行#
+下载jdk,jdk 1.8docker pull openjdk:8-jdkdocker run -it --entrypoint bash openjdk:8-jre
+eureka docker化docker build -t eureka-service:latest .
+FROM openjdk:8-jre
+MAINTAINER feelj......
         </div>
     </a>
     <p class="post-meta">
@@ -386,6 +453,10 @@ Singlet......
             <a href="/page/2/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/page/4/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -411,7 +482,11 @@ Singlet......
                     <div class="tags">
                         
                             
+                            <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
+                            
                         
+                            
+                            <a href="/tags/#Eureka" title="Eureka" rel="2">Eureka</a>
                             
                         
                             
@@ -423,11 +498,7 @@ Singlet......
                             
                         
                             
-                            <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
-                            
                         
-                            
-                            <a href="/tags/#Eureka" title="Eureka" rel="2">Eureka</a>
                             
                         
                             
@@ -445,23 +516,41 @@ Singlet......
                             
                         
                             
-                            <a href="/tags/#docker" title="docker" rel="6">docker</a>
-                            
-                        
-                            
-                            <a href="/tags/#容器" title="容器" rel="6">容器</a>
-                            
                         
                             
                             <a href="/tags/#微服务" title="微服务" rel="2">微服务</a>
                             
                         
                             
-                            <a href="/tags/#并发编程" title="并发编程" rel="4">并发编程</a>
+                        
                             
                         
                             
-                            <a href="/tags/#多线程" title="多线程" rel="4">多线程</a>
+                        
+                            
+                            <a href="/tags/#容器" title="容器" rel="7">容器</a>
+                            
+                        
+                            
+                            <a href="/tags/#docker" title="docker" rel="7">docker</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                            <a href="/tags/#并发编程" title="并发编程" rel="7">并发编程</a>
+                            
+                        
+                            
+                            <a href="/tags/#多线程" title="多线程" rel="6">多线程</a>
+                            
+                        
+                            
+                        
                             
                         
                     </div>

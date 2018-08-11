@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -165,9 +165,9 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
-                        
                           <a class="tag" href="/tags/#容器" title="容器">容器</a>
+                        
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
                     </div>
                     <h1>docker 容器数据卷</h1>
@@ -194,9 +194,11 @@
                 post-container">
 
                 <h1><span id="docker-rong-qi-shu-ju-juan">docker容器数据卷</span><a href="#docker-rong-qi-shu-ju-juan" class="header-anchor">#</a></h1><ul>
-<li>容器数据卷是什么<br>docker理念:<br>  1.将运用于运行的环境打包形成容器运行，运行可以伴随容器，是我们对数据的要求希望是持久化的。<br>  2.容器之间希望有共享数据<br>docker容器产生的数据，如果不通过docker commit生成新的镜像，使得数据作为镜像的一部分保存下来，那么当容器删除后，数据自然也就没有了<br>  为了能保存数据在docker中我们使用的卷<br>  类似于redis的rdb和aof文件，即持久化方式<ul>
+<li><p>容器数据卷是什么<br>docker理念:<br>  1.将运用于运行的环境打包形成容器运行，运行可以伴随容器，是我们对数据的要求希望是持久化的。<br>  2.容器之间希望有共享数据<br>docker容器产生的数据，如果不通过docker commit生成新的镜像，使得数据作为镜像的一部分保存下来，那么当容器删除后，数据自然也就没有了<br>  为了能保存数据在docker中我们使用的卷<br>  类似于redis的rdb和aof文件，即持久化方式</p>
+<ul>
 <li>能干嘛<br>卷就是目录或文件，存在于一个或多个容器中，由于docker挂载到容器，到不数据联合文件系统，因此能够绕过Union file system提供的一些用于持久存储或共享数据的特性<br>卷的设计目的就是数据的持久化，完全独立于容器的生命周期，因此docker不会在容器删除时删除挂载的数据卷<br>特点<br>1.数据卷可在容器之间共享或重用数据<br>2.卷中的更改可以直接生效<br>3.数据卷中的更改不会包含在镜像的更新中<br>4.数据卷的生命周期一直持续到没有容器使用它为止<br>容器持久化<br>容器间继承+共享数据</li>
-<li>数据卷 容器内添加<ul>
+<li><p>数据卷 容器内添加</p>
+<ul>
 <li>直接命令添加<ul>
 <li>命令 ：docker run -it -v /宿主机绝对路径目录:/容器内目录  [镜像名]</li>
 <li>查看是否挂载成功<br>使用 <code>docker inspect</code>查看容器信息<br>查看对应的文件名，查到volumes和binds就说明绑定成功了<br><img src="https://i.imgur.com/YMMqMUM.jpg" alt="docker-42.jpg"></li>
@@ -206,7 +208,28 @@
 </code></pre></li>
 </ul>
 </li>
-<li>DockerFile添加</li>
+<li><p>DockerFile添加</p>
+<ul>
+<li>根目录下新建mydocker文件夹并进入</li>
+<li>在dockerfile中使用VOLUME指令来给镜像添加一个或多个数据卷</li>
+<li><p>file构建（新建dockerfile文件，输入一以下命令）</p>
+<pre><code>FROM centos
+VOLUME [&quot;/dataVolumeContainer1&quot;,&quot;/dataVolumeContainer2&quot;]
+CMD echo &quot;finished,--------------success1&quot;
+CMD /bin/bash
+</code></pre></li>
+<li>build命令构建容器<br><img src="https://i.imgur.com/X9ai7O8.jpg" alt="docker-45.jpg"></li>
+<li>run 容器<br><img src="https://i.imgur.com/yXQkpUY.jpg" alt="docker-46.jpg"></li>
+<li><p>校验数据是否共享</p>
+<p>dockerfile后续文章详解</p>
+</li>
+</ul>
+</li>
+<li><p>数据卷容器(volumes-from)</p>
+<ul>
+<li>是什么： 命名的容器挂载数据卷，其它容器通过挂载这个(父容器)实现数据共享，挂载数据卷的容器，称数据卷容器</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -221,12 +244,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/22/Spring Cloud  RestTemplate/" data-toggle="tooltip" data-placement="top" title="Spring Cloud RestTemplate 使用">&larr; Previous Post</a>
+                            <a href="/2018/07/22/docker-基础命令/" data-toggle="tooltip" data-placement="top" title="docker 基础命令">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/07/22/docker安装/" data-toggle="tooltip" data-placement="top" title="docker安装">Next Post &rarr;</a>
+                            <a href="/2018/07/22/docker初识/" data-toggle="tooltip" data-placement="top" title="docker初识">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -253,9 +276,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
-                        
                           <a class="tag" href="/tags/#容器" title="容器">容器</a>
+                        
+                          <a class="tag" href="/tags/#docker" title="docker">docker</a>
                         
                     </div>
                 </section>
