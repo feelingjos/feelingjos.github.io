@@ -184,33 +184,32 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/synchronized原理/">
+    <a href="/2018/03/12/并发编程 - lock/">
         <h2 class="post-title">
-            并发编程  synchronized
+            并发编程 Lock
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            synchronized原理与使用#
-原理
-内置锁:被synchronized修饰的代码，会有一个内置锁
-互斥锁:一个线程再执行，另一个线程就不能进入了
+            Lock接口的认识与使用#
+Lock是一个解决多线程的线程安全的一种方案，z之前我们了解到解决多线安全的方案还有 synchronized volatile atomoic*
+
+lock需要显示获取和释放锁，繁锁
+synchronized不需要显示获取和释放锁，简单
+使用lock可以方便的实现公平性
+非阻塞的获取锁
+能被中断的获取锁
+超时获取锁
 
 
-使用
-修饰静态方法
-修饰普通方法
-修饰代码块
-
-
-
-...
+实现一个自定义lock
+//实现lock接......
         </div>
     </a>
     <p class="post-meta">
         Posted by feelj on
-        2018-07-22
+        2018-03-12
     </p>
 
 </div>
@@ -218,34 +217,7 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/并发编程/">
-        <h2 class="post-title">
-            并发编程  线程状态与线程多线程创建
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            线程状态#    通过图中我们可以知道,线程分为六个状态(也叫生命周期)
-
-初始(NEW): 线程实例被创建，还未启动(未执行start())
-运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态
-阻塞(BLOCKED):阻塞状态
-等待(WAITING):该状态下，线程需要等待其他线程的通知
-超时等待(TIME_WAITING): 与等待不同的是，它可......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by feelj on
-        2018-07-22
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/22/并发编程 - 读写锁/">
+    <a href="/2018/03/11/并发编程 - 读写锁/">
         <h2 class="post-title">
             并发编程  读写锁
         </h2>
@@ -265,7 +237,7 @@
     </a>
     <p class="post-meta">
         Posted by feelj on
-        2018-07-22
+        2018-03-11
     </p>
 
 </div>
@@ -273,32 +245,26 @@
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/线程安全/">
+    <a href="/2018/03/10/并发编程/">
         <h2 class="post-title">
-            线程安全
+            并发编程  线程状态与线程多线程创建
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            单例模式与线程安全性问题#
-饿汉模式
-//私有化构造方法
-private Singleton() {}
+            线程状态#    通过图中我们可以知道,线程分为六个状态(也叫生命周期)
 
-private static Singleton instance=new Singleton();
-
-public static Singleton getInstance() {
-    return instance;
-}
-
-//由于构造方法私有无法直接new来创建
-Singlet......
+初始(NEW): 线程实例被创建，还未启动(未执行start())
+运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态
+阻塞(BLOCKED):阻塞状态
+等待(WAITING):该状态下，线程需要等待其他线程的通知
+超时等待(TIME_WAITING): 与等待不同的是，它可......
         </div>
     </a>
     <p class="post-meta">
         Posted by feelj on
-        2018-07-22
+        2018-03-10
     </p>
 
 </div>
@@ -306,7 +272,32 @@ Singlet......
 
 <div class="post-preview">
 
-    <a href="/2018/07/22/微服务服务拆分/">
+    <a href="/2018/01/30/服务docker化/">
+        <h2 class="post-title">
+            微服务docker化
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            将开发好的微服务放入docker容器中运行#
+下载jdk,jdk 1.8docker pull openjdk:8-jdkdocker run -it --entrypoint bash openjdk:8-jre
+eureka docker化docker build -t eureka-service:latest .
+FROM openjdk:8-jre
+MAINTAINER feelj......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-01-30
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/30/微服务服务拆分/">
         <h2 class="post-title">
             微服务服务拆分杂谈
         </h2>
@@ -331,7 +322,40 @@ Singlet......
     </a>
     <p class="post-meta">
         Posted by feelj on
-        2018-07-22
+        2018-01-30
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/22/线程安全/">
+        <h2 class="post-title">
+            线程安全
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            单例模式与线程安全性问题#
+饿汉模式
+//私有化构造方法
+private Singleton() {}
+
+private static Singleton instance=new Singleton();
+
+public static Singleton getInstance() {
+    return instance;
+}
+
+//由于构造方法私有无法直接new来创建
+Singlet......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by feelj on
+        2018-01-22
     </p>
 
 </div>
@@ -372,6 +396,10 @@ Singlet......
                     <div class="tags">
                         
                             
+                        
+                            
+                        
+                            
                             <a href="/tags/#Spring Cloud" title="Spring Cloud" rel="3">Spring Cloud</a>
                             
                         
@@ -385,10 +413,6 @@ Singlet......
                         
                             
                             <a href="/tags/#Lambda" title="Lambda" rel="5">Lambda</a>
-                            
-                        
-                            
-                        
                             
                         
                             
@@ -416,14 +440,14 @@ Singlet......
                             
                         
                             
+                            <a href="/tags/#docker" title="docker" rel="7">docker</a>
+                            
                         
                             
                             <a href="/tags/#容器" title="容器" rel="7">容器</a>
                             
                         
                             
-                            <a href="/tags/#docker" title="docker" rel="7">docker</a>
-                            
                         
                             
                         
@@ -432,11 +456,11 @@ Singlet......
                             
                         
                             
-                            <a href="/tags/#并发编程" title="并发编程" rel="7">并发编程</a>
+                            <a href="/tags/#并发编程" title="并发编程" rel="8">并发编程</a>
                             
                         
                             
-                            <a href="/tags/#多线程" title="多线程" rel="6">多线程</a>
+                            <a href="/tags/#多线程" title="多线程" rel="7">多线程</a>
                             
                         
                             

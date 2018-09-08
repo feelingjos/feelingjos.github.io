@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          并发编程  线程状态与线程多线程创建 - feelj | feelj&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://www.feeljblog.com/2018/03/10/并发编程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Welcome to come feelj&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('post-bg-2015.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                    <h1>并发编程  线程状态与线程多线程创建</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by feelj on
+                        2018-03-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="xian-cheng-zhuang-tai">线程状态</span><a href="#xian-cheng-zhuang-tai" class="header-anchor">#</a></h1><p>  <img src="https://i.imgur.com/VC3rog8.gif" alt=""><br><br>  通过图中我们可以知道,线程分为六个状态(也叫生命周期)</p>
+<ul>
+<li>初始(NEW): 线程实例被创建，还未启动(未执行start())</li>
+<li>运行(RUNNABLE): 当线程处在就绪(ready)和运行(runing)统一为运行状态</li>
+<li>阻塞(BLOCKED):阻塞状态</li>
+<li>等待(WAITING):该状态下，线程需要等待其他线程的通知</li>
+<li>超时等待(TIME_WAITING): 与等待不同的是，它可以在指定的时间内自行返回</li>
+<li><p>终止(TERMINATED): 线程执行结束</p>
+<p> 线程的各个状态可通过不同方法来转换</p>
+</li>
+</ul>
+<h1><span id="duo-xian-cheng-chuang-jian">多线程创建</span><a href="#duo-xian-cheng-chuang-jian" class="header-anchor">#</a></h1><ul>
+<li><p>继承Thread类</p>
+<pre><code>public class Demo1 extends Thread{
+      //run方法的方法体为子线程的任务
+      @Override
+      public void run() {
+           while (!interrupted()) {
+                System.out.println(getName()+&quot;:线程执行了...&quot;);
+           }
+      }
+
+      //通过start()启动执行              
+} 
+</code></pre></li>
+<li><p>实现Runnable接口</p>
+<pre><code>public class Demo2 implements Runnable{
+
+    @Override
+    public void run() {
+        while(true) {
+            System.out.println(&quot;thread running...&quot;);
+        }
+    }
+
+} 
+</code></pre></li>
+<li><p>匿名内部类的方式</p>
+<pre><code>//当线程只使用一次时，可以用这种方式创建
+new Thread() {
+    @Override
+    public void run() {
+
+    }
+}.start();
+
+new Thread(new Runnable() {
+
+    public void run() {
+
+    }
+}).start();
+</code></pre></li>
+<li><p>带返回值的线程</p>
+<pre><code>//实现callable实现call 方法为子线程任务
+public class Demo4 implements Callable&lt;Integer&gt;{
+
+    public static void main(String[] args) throws       InterruptedException, ExecutionException {
+        Demo4 d=new Demo4();
+
+        FutureTask&lt;Integer&gt; taks=new FutureTask&lt;Integer&gt;(d);
+
+        Thread t=new Thread(taks);
+        t.start();
+
+        Integer integer = taks.get();
+        System.out.println(integer);
+
+    }
+
+    public Integer call() throws Exception {
+        System.out.println(&quot;正在进行紧张的计算&quot;);
+        Thread.sleep(3000);
+        return 1;
+    }
+}
+</code></pre></li>
+<li><p>定时器（quartz）</p>
+<pre><code>Timer tiemr =new Timer();
+
+tiemr.schedule(new TimerTask() {
+
+    @Override
+    public void run() {
+        System.out.println(&quot;执行了&quot;);                
+    }
+},0,1000);
+</code></pre></li>
+<li><p>线程池的实现</p>
+<pre><code>//通过jdk的线程池框架实线，设置线程大小为10
+ExecutorService threadPool=Executors.newFixedThreadPool(10);
+for (int i=0;i&lt;10;i++) {
+    threadPool.execute(new Runnable() {
+        public void run() {
+            System.out.println(Thread.currentThread().getName());                
+        }
+    });
+}
+
+threadPool.shutdown();//停止所有线程
+</code></pre></li>
+<li><p>Lambda表达式实现</p>
+<pre><code>public int add(List&lt;Integer&gt; values) {
+    //获取并行流，并流的任务执行也是一个多线程
+    values.parallelStream().forEach(System.out::println);
+    return values.parallelStream().mapToInt(a -&gt; a).sum();
+}
+
+//准备数据
+List&lt;Integer&gt; values=Arrays.asList(10,20,30,40);
+//调用执行
+int res = new Demo7().add(values);
+System.out.println(res);
+</code></pre></li>
+<li><p>Spring实现多线程</p>
+<pre><code>创建一个maven工程，pom文件添加
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+        &lt;version&gt;5.0.0.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+//spring 配置类
+@Configuration
+@Component(&quot;com.feelingj.thread.t1&quot;)
+@EnableAsync
+public class Config {
+
+}
+
+@Service
+public class DemoService {
+
+    //在spring中使用，async注解来创建异步(多线程)任务
+    @Async
+    public void a() throws InterruptedException {
+        //a方法中的任务应有一个子线程来完成
+        while (true) {
+            System.out.println(&quot;a&quot;);
+            Thread.sleep(2000);
+        }
+    }
+
+    //在spring中使用，async注解来创建异步(多线程)任务
+    @Async
+    public void b() {
+        //b方法中的任务应有一个子线程来完成
+        while (true) {
+            System.out.println(&quot;b&quot;);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
+
+//通过spring上下问调用
+AnnotationConfigApplicationContext ac=new AnnotationConfigApplicationContext(Config.class);
+
+DemoService ds = ac.getBean(DemoService.class);
+
+try {
+    ds.a();
+} catch (InterruptedException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+ds.b();
+</code></pre></li>
+<li><p>在学习多线程之前，我们来了解一下线程带来的风险，大致有三种:</p>
+<ul>
+<li><p>线程安全问题</p>
+<pre><code>//序列生成器
+public class Sequence {
+
+    private int value;
+
+    //使用synchronized同步块之后便解决了重复问题
+    public synchronized int getNext() {
+        return value++;
+    }
+
+    public static void main(String[] args) {
+        Sequence s = new Sequence();
+        /*
+           单线程启动一切正常
+         while (true) { System.out.println(s.getNext()); }
+         */
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println(Thread.currentThread().getName() + &quot; &quot; + s.getNext());
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        //当三个线程启动时，就会出现序列重复问题了
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>多线程环境下</li>
+<li>多个线程共享一个资源</li>
+<li>对资源进行读写(非原子性)操作</li>
+<li><p>synchronized原理与使用 </p>
+<ul>
+<li>原理<ul>
+<li>内置锁:被synchronized修饰的代码，会有一个内置锁</li>
+<li>互斥锁:一个线程再执行，另一个线程就不能进入了</li>
+</ul>
+</li>
+<li>使用<ul>
+<li>修饰静态方法</li>
+<li>修饰普通方法</li>
+<li>修饰代码块</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>活跃性问题</li>
+<li>死锁:死锁是资源等待与释放不协调导致的，通俗的将就是A线程等待B线程释放锁，而B线程又在等待A线程释放锁，导致双方都不释放</li>
+<li><p>饥饿:饥饿是线程优先级导致，多线程在抢资源的时候，有的线程优先级低，所以无法获取到执行的cpu资源，最后’饿死了’</p>
+<ul>
+<li>导致饥饿的问题<ul>
+<li>高优先级吞噬所有优先级的cpu时间片</li>
+<li>线程被永久阻塞再一个等待进入同步块的状态</li>
+<li>等待的线程永远不被唤醒</li>
+</ul>
+</li>
+<li><p>如何尽量避免饥饿锁</p>
+<ul>
+<li><p>设计合理的优先级</p>
+<p>  Thread t1 = new Thread(new Target());<br>  //通过setPriority设置优先级<br>  t1.setPriority(1);</p>
+</li>
+<li><p>使用锁来代替synchronized</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>活锁:活锁是指多线程执行时都办法使用资源</li>
+<li>性能问题(优化)</li>
+<li>多线程线程问题涉及到一个理念，就是多线程不一定就高效率，就执行运行速度块，这和cpu的工作原理有关，每个线程根据cpu的核数来切换cpu资源，所以每个线程的执行是根据cpu的一个时间片来分配资源的，会有一个上下文切换来处理资源，而当线程多了之后，切换上线文也是很耗资源的</li>
+</ul>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/03/11/并发编程 - 读写锁/" data-toggle="tooltip" data-placement="top" title="并发编程  读写锁">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/01/30/服务docker化/" data-toggle="tooltip" data-placement="top" title="微服务docker化">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#并发编程" title="并发编程">并发编程</a>
+                        
+                          <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                <li>
+                    <a target="_blank" href="https://gitee.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-git-square fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                    
+                    <li>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1625010024&amp;site=qq&amp;menu=yes">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                                        </span>
+                        </a>
+                    </li>
+                    
+                
+                <li>
+                    <a target="_blank"  href="https://github.com/feelingjos">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+
+
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Welcome to come feelj&#39;s Blog 2018
+                    <br>
+                    Theme by <a href="http://feeljblog">feelj</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span>
+                    Ported by <a href="https://gitee.com/feelingjos">feelj</a> |
+                    <!-- 项目star和地址 -->
+                    <!-- <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.feeljblog.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'feeljblog';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<!-- <img src="http://www.feeljblog.com/img/icon_wechat.png" width="0" height="0" /> -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
